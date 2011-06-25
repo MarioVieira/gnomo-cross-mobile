@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		xmlns:s="library://ns.adobe.com/flex/spark" title="Sleep log">
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<fx:Script>
+		<![CDATA[
+			import uk.co.baremedia.gnomo.models.Locale;
+			import uk.co.baremedia.gnomo.presentation.PresentationLogs;
+			[Bindable] public var presentationModel:PresentationLogs;
+		]]>
+	</fx:Script>
+	
+	<s:layout>
+		<s:VerticalLayout
+			verticalAlign="middle"
+			horizontalAlign="center"
+			paddingTop="10"
+			paddingBottom="10"
+			paddingRight="10"
+			paddingLeft="10"/>
+	</s:layout>
+	
+	<s:TextArea
+		selectable="false"
+		text="{ Locale.screenLogsTextActivity }"/>
+
+	<s:List
+		height="100%"
+		width="100%"/>
+	
+	<s:Button
+		label="{ Locale.buttonBack }"
+		click=" presentationModel.requestScreenLogsMain() "/>
+	
+</s:View>

@@ -1,0 +1,59 @@
+<serializer xmlns:serializer="library://org.as3.serializer">
+  <DescriptorLanguage type="uk.co.baremedia.gnomo.descriptors::DescriptorLanguage">
+    <screenNoWirelessButtonConnectedNow type="String">ok, connected now</screenNoWirelessButtonConnectedNow>
+    <screenTryConnetingAgainTextMessage type="String">It was not posibleto connect to your network
+
+Either is no other Baby Call 2</screenTryConnetingAgainTextMessage>
+    <screenUnitsButtonDisconnect type="String">disconnect</screenUnitsButtonDisconnect>
+    <screenNoWirelessBack type="String">you device
+is NOT connected
+to a wireless network
+
+please connect first</screenNoWirelessBack>
+    <screenUnitsTextParentUnit type="String">PARENT unit</screenUnitsTextParentUnit>
+    <screenConnectButtonConnect type="String">connect</screenConnectButtonConnect>
+    <screenUnitsTextBabyUnit type="String">BABY unit</screenUnitsTextBabyUnit>
+    <screenTryConnetingAgainButtonTryAgain type="String">try again</screenTryConnetingAgainButtonTryAgain>
+    <screenUnitsButtonStopListening type="String">stop listening</screenUnitsButtonStopListening>
+    <screenModeTextWirelessNote type="String">Note that only your wireless network
+will be used, no internet or
+mobile operator bandwith will
+be used at all.
+You can have as may parent units
+as wished to one baby unit</screenModeTextWirelessNote>
+    <buttonQuit type="String">quit</buttonQuit>
+    <screenTryConnetingAgainButtonSwapModes type="String">swap mode</screenTryConnetingAgainButtonSwapModes>
+    <buttonBack type="String">back</buttonBack>
+    <screenConnectTextMessage type="String">1 - Make sure there is NO
+network firewall on
+
+2 - Have at least one more
+BabyCall 2 application on
+ "wireless mode" (pc or mobile)*see email invoice for
+
+3 - When connected set
+a baby unit, and put the
+device near to your baby/child</screenConnectTextMessage>
+    <screenPhoneTextNumberToCall type="String">Phone number to call:</screenPhoneTextNumberToCall>
+    <screenUnitsTextSetABabyUnit type="String">SET A BABY UNIT</screenUnitsTextSetABabyUnit>
+    <screenPhoneTextTimer type="String">Timer to call phone:</screenPhoneTextTimer>
+    <screenUnitsTextConnecting type="String">CONNECTING</screenUnitsTextConnecting>
+    <screenModesButtonWireless type="String">wireless mode</screenModesButtonWireless>
+    <screenUnitsTextConnected type="String">CONNECTED</screenUnitsTextConnected>
+    <screenPhoneButtonTest type="String">test</screenPhoneButtonTest>
+    <screenModeTextWirelessFunction type="String">one baby unit will broadcast audio 
+to parent unit(s) on audio acitivity</screenModeTextWirelessFunction>
+    <screenUnitsTextSensibiity type="String">sensibility</screenUnitsTextSensibiity>
+    <screenPhoneButtonStart type="String">start</screenPhoneButtonStart>
+    <screenModesButtonPhone type="String">phone mode</screenModesButtonPhone>
+    <screenModeTextPhoneNote type="String"/>
+    <screenUnitsButtonSetAsBabyUnit type="String">set as baby unit</screenUnitsButtonSetAsBabyUnit>
+    <screenModeTextMessage type="String"/>
+    <screenUnitsButtonListenNow type="String">listen now</screenUnitsButtonListenNow>
+    <screenUnitsButtonSwapModes type="String">swap modes</screenUnitsButtonSwapModes>
+    <screenModeTextPhoneFunction type="String">mobile will call pre-defined
+phone number 
+on audio activity</screenModeTextPhoneFunction>
+    <screenUnitsButtonLogs type="String">logs</screenUnitsButtonLogs>
+  </DescriptorLanguage>
+</serializer>

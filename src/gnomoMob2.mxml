@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:TabbedViewNavigatorApplication 
+	xmlns:fx="http://ns.adobe.com/mxml/2009" 
+	xmlns:s="library://ns.adobe.com/flex/spark" xmlns:components="views.components.*" xmlns:core="org.as3.mvcsInjector.core.*"
+	creationComplete="creationComplete(event)">
+	
+	<fx:Metadata> 
+		[ResourceBundle("text")] 
+	</fx:Metadata>
+	
+	<fx:Script>
+		<![CDATA[
+			import assets.Images;
+			
+			import core.CoreAppScreens;
+			
+			import navigation.MobileNavigator;
+			
+			import org.as3.mvcsInjector.core.ApplicationContext;
+			import org.as3.mvcsInjector.descriptors.DescriptorAppFrameWork;
+			import org.as3.mvcsInjector.utils.Tracer;
+			
+			import spark.components.Group;
+			import spark.components.SkinnablePopUpContainer;
+			
+			import uk.co.baremedia.gnomo.core.CoreAppFrameWorkDescriptors;
+			import uk.co.baremedia.gnomo.descriptors.DescriptorLanguage;
+			import uk.co.baremedia.gnomo.enums.EnumsLanguage;
+			import uk.co.baremedia.gnomo.enums.EnumsScreens;
+			import uk.co.baremedia.gnomo.utils.UtilsResources;
+			
+			import views.ListView;
+			import views.components.ComponentScreenModes;
+			import views.components.ComponentUnits;
+			
+			protected var _mobNavigator		:MobileNavigator;
+			protected var _context			:ApplicationContext;  
+			protected var _currentAlert		:SkinnablePopUpContainer;
+			
+			override protected function childrenCreated():void
+			{
+				setupViewNavigator();
+			}
+			
+			protected function creationComplete(e:Event):void
+			{
+				//navigator.addElement( new ComponentUnits() );
+				Tracer.log(this, "creationComplete");
+			}
+			
+			protected function testIt():void
+			{
+				Tracer.log(this, "testIt");
+			}
+			
+			protected function setupViewNavigator():void
+			{
+				_mobNavigator = new MobileNavigator(this, tabbedNavigator, backButton);
+			}
+			
+			protected function getFrameWorkDescriptor():DescriptorAppFrameWork
+			{
+				var appDescriptor:DescriptorAppFrameWork 	= CoreAppFrameWorkDescriptors.getFrameWorkDescriptors( CoreAppScreens.getAppScreens(EnumsScreens.SCREEN_MODES) );
+				
+				appDescriptor.languageDescriptorClass 		= DescriptorLanguage;
+				appDescriptor.languageId			  		= 1;
+				
+				return appDescriptor; 
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+		
+		<core:ApplicationContext
+			applicationFrameWorkDescriptor="{ getFrameWorkDescriptor() }"
+			contextView="{ this }" />
+		
+		<s:Button 
+			id="backButton" 
+			label="Back" 
+			click="_mobNavigator.backButton_clickHandler(event)" />
+		<!--
+		<s:SkinnablePopUpContainer id="alertAgreement" backgroundAlpha="0.5" backgroundColor="0x000000">
+		<s:Panel title="{ UtilsResources.getKey(EnumsLanguage.AGREEMENT) }" horizontalCenter="0" verticalCenter="0" width="90%">
+		<s:VGroup width="100%" bottom="0"
+		horizontalAlign="center"
+		verticalAlign="middle">
+		
+		<s:TextArea
+		borderVisible="false" 
+		contentBackgroundAlpha="0" 
+		width="100%" 
+		editable="false" 
+		selectable="false"
+		text="{ UtilsResources.getKey(EnumsLanguage.DISCLAIMER_ALERT) }"/>
+		
+		<s:Button 
+		label="{ UtilsResources.getKey(EnumsLanguage.AGREE) }" 
+		click="closeAlert()" 
+		width="50%" 
+		styleName="dialogDefaultButton"/>
+		
+		</s:VGroup>
+		</s:Panel>
+		</s:SkinnablePopUpContainer>
+		
+		<s:SkinnablePopUpContainer id="alertImportant" backgroundAlpha="0.5" backgroundColor="0x000000">
+		
+		<s:Panel 
+		title="{ UtilsResources.getKey(EnumsLanguage.IMPORTANT) }" 
+		horizontalCenter="0" verticalCenter="0" width="90%">
+		
+		<s:VGroup width="100%" bottom="0"
+		horizontalAlign="center"
+		verticalAlign="middle">
+		
+		<s:TextArea
+		borderVisible="false" 
+		contentBackgroundAlpha="0" 
+		width="100%" 
+		editable="false" 
+		selectable="false"
+		textAlign="center"
+		text="{ UtilsResources.getKey(EnumsLanguage.INSTRUCTIONS_TEXT) }"/>
+		
+		<s:Button label="{ UtilsResources.getKey(EnumsLanguage.OK) }" 
+		click="closeAlert()" 
+		width="50%" 
+		styleName="dialogDefaultButton"/>
+		
+		</s:VGroup>
+		</s:Panel>
+		</s:SkinnablePopUpContainer>
+		-->
+		
+	</fx:Declarations>
+	
+	<fx:Style>
+		@namespace s "library://ns.adobe.com/flex/spark";
+		
+		@media (os-platform: "Android")
+		{
+			/* Android Gingerbread style Panel skin*/
+			/* not picked up from mobile_examples.swc because the spark theme has higher priority */
+			s|Panel
+			{
+				skinClass: ClassReference("spark.skins.mobile.PanelSkin");
+				borderWeight: 6;
+				borderColor: #666666;
+				backgroundColor: #FFFFFF;
+				fontWeight: normal;
+			}
+			
+			s|Panel s|Button
+			{
+				fontWeight: normal;
+			}
+			
+			s|Panel #titleDisplay
+			{
+				color: #FFFFFF;
+				fontSize: 28;
+			}
+		}
+		
+		@media (os-platform: "Android") and (application-dpi: 160)
+		{
+			s|Panel
+			{
+				borderWeight: 4;
+			}
+			
+			s|Panel #titleDisplay
+			{
+				fontSize: 18;
+			}
+		}
+		
+		@media (os-platform: "Android") and (application-dpi: 320)
+		{
+			s|Panel
+			{
+				borderWeight: 8;
+			}
+			
+			s|Panel #titleDisplay
+			{
+				fontSize: 36;
+			}
+		}
+	</fx:Style>
+	
+	<s:ViewNavigator id="navigator" label="{ UtilsResources.getKey(EnumsLanguage.BABY_CALL) }" firstView="{ ComponentUnits }" width="100%" height="100%">
+		
+		<s:icon>
+			<s:MultiDPIBitmapSource source160dpi="{ Images.iconBaby_32x24 }"
+									source240dpi="{ Images.iconBaby_48x36 }"
+									source320dpi="{ Images.iconBaby_48x36 }" />
+		</s:icon>
+		
+	</s:ViewNavigator>
+	
+	<s:ViewNavigator label="{ UtilsResources.getKey(EnumsLanguage.LOGS) }" firstView="{views.ListView}" width="100%" height="100%">
+		<s:icon>
+			<s:MultiDPIBitmapSource source160dpi="{ Images.logBaby_32x24 }"
+									source240dpi="{ Images.logBaby_48x36 }"
+									source320dpi="{ Images.logBaby_56x42 }" />
+		</s:icon>
+	</s:ViewNavigator>
+	
+	<s:ViewNavigator label="{ UtilsResources.getKey(EnumsLanguage.INFO) }" firstView="{ ComponentScreenModes }" width="100%" height="100%">
+		
+		<s:icon>
+			<s:MultiDPIBitmapSource  source160dpi="{ Images.infoBaby_32x24 }"
+									 source240dpi="{ Images.infoBaby_48x36 }"
+									 source320dpi="{ Images.infoBaby_56x42 }" />
+		</s:icon>
+		
+	</s:ViewNavigator>
+	
+	
+</s:TabbedViewNavigatorApplication>

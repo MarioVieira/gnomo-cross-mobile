@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		xmlns:s="library://ns.adobe.com/flex/spark" 
+		
+		title="{ UtilsResources.getKey(EnumsLanguage.BABY_CALL) }" xmlns:p2p="com.projectcocoon.p2p.*" xmlns:components="views.components.*">
+	
+	
+	
+	<fx:Script>
+		<![CDATA[ 
+			import mx.core.FlexGlobals;
+			import mx.events.ResizeEvent;
+			
+			import org.as3.mvcsInjector.utils.Tracer;
+			
+			import spark.components.SkinnablePopUpContainer;
+			
+			import uk.co.baremedia.gnomo.enums.EnumsLanguage;
+			import uk.co.baremedia.gnomo.presentation.PresentationUnits;
+			import uk.co.baremedia.gnomo.utils.UtilsResources;
+			
+			[Bindable] protected var _presentationModel:PresentationUnits;
+			
+			private var _currentAlert:SkinnablePopUpContainer;
+			
+			public function set presentationModel(value:PresentationUnits):void
+			{
+				_presentationModel = value;
+				_presentationModel.openAlert.add(onOpenAlert);
+				alerts.closeAlert.add(onCloseAlert);
+				_presentationModel.checkHasToShowAlerts();
+			}
+			
+			public function get presentationModel():PresentationUnits
+			{
+				return _presentationModel;
+			}
+			
+			private function onOpenAlert(alertPopupId:String):void
+			{
+				//Tracer.log(this, "onOpenAlert - alertPopupId: "+alertPopupId);
+				if(alertPopupId != null)
+					openAlert(this.alerts[alertPopupId]);
+				else if(_currentAlert && _currentAlert.id != PresentationUnits.ALERT_IMPORTANT)
+					_currentAlert.close();
+			}
+			
+			private function onCloseAlert():void
+			{
+				if(_currentAlert.id == PresentationUnits.ALERT_AGREEMENT)
+				{
+					_presentationModel.agreementAccepted(true);
+				}
+				
+				closeAlert();
+			}
+			
+			public function openAlert(alert:SkinnablePopUpContainer):void
+			{
+				_currentAlert = alert;
+				_currentAlert.open(this, false);
+				updateAlertPosition(null);
+				addEventListener(ResizeEvent.RESIZE, updateAlertPosition);
+			}
+			
+			protected function closeAlert():void 
+			{
+				removeEventListener(ResizeEvent.RESIZE, updateAlertPosition);
+				_currentAlert.close();
+				_presentationModel.alertClosed(_currentAlert.id);
+			}
+			
+			public function updateAlertPosition(e:Event):void
+			{
+				if(_currentAlert.isOpen)
+				{
+					_currentAlert.width  = FlexGlobals.topLevelApplication.systemManager.screen.width;
+					_currentAlert.height = FlexGlobals.topLevelApplication.systemManager.screen.height;
+				}
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+		<components:ComponentAlerts
+			id="alerts"
+			width="100%"
+			height="100%"/>	
+	</fx:Declarations>
+	
+	<s:Scroller width="100%" height="100%" verticalScrollPolicy="on">
+		
+		<s:Group width="100%" height="100%">
+			<s:layout>
+				<s:MultiDPIVerticalLayout 
+					sourceDPI="160"
+					paddingTop="10" paddingBottom="10" paddingLeft="10" paddingRight="10"/>
+			</s:layout>
+			
+			<s:TextArea 
+				borderVisible="false" 
+				contentBackgroundAlpha="0" 
+				width="100%" 
+				editable="false" 
+				selectable="false"
+				text="{ _presentationModel.textTopNote }" />
+			
+			<s:TextArea
+				borderVisible="false" 
+				contentBackgroundAlpha="0" 
+				width="100%" 
+				editable="false" 
+				selectable="false"
+				text="{ _presentationModel.textConnectionStatus }" />
+			
+			<s:TextArea
+				borderVisible="false" 
+				contentBackgroundAlpha="0" 
+				width="100%" 
+				editable="false" 
+				selectable="false"
+				text="{ UtilsResources.getKey(EnumsLanguage.SENSIBILITY) }"/>
+			
+			<s:HSlider
+				width="100%"
+				id="slider"
+				thumbRelease="_presentationModel.setSensibility(slider.value)"/>
+			
+			<s:Button 
+				label="{ UtilsResources.getKey(EnumsLanguage.SET_AS_BABY_UNIT) }" 
+				click=" _presentationModel.setAsBabyUnit(); " 
+				enabled="{ !_presentationModel.broadcasting }"
+				width="100%"/>
+			
+			<s:Button 
+				label="{ _presentationModel.textListenNow }" 
+				click=" _presentationModel.listenOrStopListening(); "
+				enabled="{ _presentationModel.receiving }"
+				width="100%"/>
+			
+			<s:Button 
+				label="{ _presentationModel.textSwapOrQuitButton }" 
+				click=" _presentationModel.swapModesOrQuit(); "
+				enabled="{ _presentationModel.connected }"
+				width="100%"/>
+			
+		</s:Group>
+	</s:Scroller>
+</s:View>
