@@ -4,6 +4,7 @@ package views.mediators
 	import org.robotlegs.mvcs.MediatorInit;
 	
 	import uk.co.baremedia.gnomo.controls.ControlLogs;
+	import uk.co.baremedia.gnomo.models.ModelSharedObject;
 	import uk.co.baremedia.gnomo.presentation.PresentationLogs;
 	
 	import views.components.ComponentLogsMain;
@@ -22,7 +23,7 @@ package views.mediators
 		
 		override public function onRegister():void
 		{ 
-			_view.presentationModel = new PresentationLogs( _injector.getInstance(ControlLogs) );
+			_view.presentationModel = new PresentationLogs( _injector.getInstance(ControlLogs) ,  _injector.getInstance(ModelSharedObject) );
 		}
 		
 		override public function onRemove():void

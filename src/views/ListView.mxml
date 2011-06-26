@@ -76,21 +76,25 @@
             <s:ListForm id="list"
                         width="100%" height="100%" title="Custom List Styles"
                         dataProvider="{listData}" change="navigator.pushView(views.ListView)"
-                        styleName="listForm">
+                        styleName="listForm"
+						
+						itemRenderer="views.components.itemRenderer.RendererLogs">
+				<!--
                 <s:itemRenderer>
                     <fx:Component>
                         <!-- Custom IconItemRenderer with arbitrary UIComponent content -->
-                        <s:ListFormItemRenderer styleName="listFormItemRenderer">
-                            <!-- http://glyphish.com -->
+                       <!-- <s:ListFormItemRenderer styleName="listFormItemRenderer">
+                           	
+							<!-- http://glyphish.com -->
                             <!-- TODO bitmaps for 240 and 320 -->
                             <!--
                             <s:decorator>
                                 <s:MultiDPIBitmapSource source160dpi="@Embed('../assets/01-arrow-east.png')"/>
                             </s:decorator>
                             -->
-                        </s:ListFormItemRenderer>
-                    </fx:Component>
-                </s:itemRenderer>
+                        <!-- </s:ListFormItemRenderer> 
+                    </fx:Component> 
+                </s:itemRenderer>-->
             </s:ListForm>
             
         </s:Group>

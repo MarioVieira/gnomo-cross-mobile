@@ -1,14 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
-		xmlns:s="library://ns.adobe.com/flex/spark" title="Sleep log">
+		xmlns:s="library://ns.adobe.com/flex/spark" title="Sleep log"
+		
+		creationComplete="onCreationComplete(event)">
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
 	<fx:Script>
 		<![CDATA[
+			import uk.co.baremedia.gnomo.enums.EnumsLanguage;
 			import uk.co.baremedia.gnomo.models.Locale;
 			import uk.co.baremedia.gnomo.presentation.PresentationLogs;
+			import uk.co.baremedia.gnomo.utils.UtilsResources;
 			[Bindable] public var presentationModel:PresentationLogs;
+			
+			import mx.core.DPIClassification;
+			import mx.core.FlexGlobals;
+			import mx.events.FlexEvent;
+			
+			protected function onCreationComplete(event:FlexEvent):void
+			{
+				if (Capabilities.version.indexOf("IOS") == 0)
+				{
+					var padding:Number = (10 * FlexGlobals.topLevelApplication.applicationDPI / DPIClassification.DPI_160);
+					list.top = list.bottom = list.left = list.right = padding;
+				}
+			}
 		]]>
 	</fx:Script>
 	
@@ -16,22 +33,71 @@
 		<s:VerticalLayout
 			verticalAlign="middle"
 			horizontalAlign="center"
-			paddingTop="10"
-			paddingBottom="10"
-			paddingRight="10"
-			paddingLeft="10"/>
+			paddingTop="10"/>
 	</s:layout>
 	
 	<s:TextArea
 		selectable="false"
-		text="{ Locale.screenLogsTextActivity }"/>
-
-	<s:List
-		height="100%"
-		width="100%"/>
+		text="{ UtilsResources.getKey(EnumsLanguage.INSTRUCTIONS_LOG)}"/>
 	
-	<s:Button
-		label="{ Locale.buttonBack }"
-		click=" presentationModel.requestScreenLogsMain() "/>
+	<!--<s:List 
+	width="100%" 
+	height="100%" 
+	dataProvider="{ presentationModel.logs }"
+	horizontalScrollPolicy="off"
+	itemRenderer="views.components.itemRenderer.RendererLogs">
 	
+	</s:List>-->
+	
+	
+	<s:Scroller width="100%" height="100%">
+		<s:Group width="100%" height="100%">
+			
+			<!-- Custom List with optional title skin part -->
+			<s:ListForm 
+				id="list"
+				width="100%" height="100%"
+				dataProvider="{ presentationModel.logs }"
+				styleName="listForm"
+				itemRenderer="views.components.itemRenderer.RendererLogs">
+				
+			</s:ListForm>
+			
+		</s:Group>
+	</s:Scroller>
+	
+	
+	<fx:Style>
+		@namespace s "library://ns.adobe.com/flex/spark";
+		
+		@media (os-platform: "IOS")
+		{
+			.listFormItemRenderer
+			{
+				borderStyle: rounded;
+				cornerRadius: 10;
+			}
+			
+			.listForm #titleDisplay
+			{
+				backgroundAlpha: 0;
+				color: #4C566C;
+				fontSize: 18;
+			}
+		}
+		
+		@media (os-platform: "IOS") and (application-dpi: 320)
+		{
+			.listFormItemRenderer
+			{
+				cornerRadius: 20;
+			}
+			
+			.listForm #titleDisplay
+			{
+				fontSize: 36;
+			}
+		}
+		
+	</fx:Style>
 </s:View>

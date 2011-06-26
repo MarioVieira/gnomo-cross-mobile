@@ -20,7 +20,6 @@
 			import org.as3.mvcsInjector.descriptors.DescriptorAppFrameWork;
 			import org.as3.mvcsInjector.utils.Tracer;
 			
-			import spark.components.Group;
 			import spark.components.SkinnablePopUpContainer;
 			
 			import uk.co.baremedia.gnomo.core.CoreAppFrameWorkDescriptors;
@@ -29,7 +28,7 @@
 			import uk.co.baremedia.gnomo.enums.EnumsScreens;
 			import uk.co.baremedia.gnomo.utils.UtilsResources;
 			
-			import views.ListView;
+			import views.components.ComponentLogsDay;
 			import views.components.ComponentScreenModes;
 			import views.components.ComponentUnits;
 			
@@ -202,7 +201,7 @@
 		
 	</s:ViewNavigator>
 	
-	<s:ViewNavigator label="{ UtilsResources.getKey(EnumsLanguage.LOGS) }" firstView="{views.ListView}" width="100%" height="100%">
+	<s:ViewNavigator label="{ UtilsResources.getKey(EnumsLanguage.LOGS) }" firstView="{ ComponentLogsDay }" width="100%" height="100%">
 		<s:icon>
 			<s:MultiDPIBitmapSource source160dpi="{ Images.logBaby_32x24 }"
 									source240dpi="{ Images.logBaby_48x36 }"

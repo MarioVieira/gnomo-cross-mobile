@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:ItemRenderer 
+	xmlns:fx="http://ns.adobe.com/mxml/2009" 
+	xmlns:mx="library://ns.adobe.com/flex/mx" 
+	xmlns:s="library://ns.adobe.com/flex/spark"
+	
+	styleName="listFormItemRenderer">
+	<fx:Script>
+		<![CDATA[
+			import uk.co.baremedia.gnomo.enums.EnumsLanguage;
+			import uk.co.baremedia.gnomo.utils.UtilsResources;
+		]]>
+	</fx:Script>
+	
+	<fx:Style>
+		@namespace s "library://ns.adobe.com/flex/spark";
+		
+		@media (os-platform: "IOS")
+		{
+			.listFormItemRenderer
+			{
+				borderStyle: rounded;
+				cornerRadius: 10;
+			}
+			
+			.listForm #titleDisplay
+			{
+				backgroundAlpha: 0;
+				color: #4C566C;
+				fontSize: 18;
+			}
+		}
+		
+		@media (os-platform: "IOS") and (application-dpi: 320)
+		{
+			.listFormItemRenderer
+			{
+				cornerRadius: 20;
+			}
+			
+			.listForm #titleDisplay
+			{
+				fontSize: 36;
+			}
+		}
+		
+	</fx:Style>
+	
+	<s:states> 
+		<s:State name="normal"/> 
+		<s:State name="hovered"/> 
+	</s:states> 
+	
+	<s:HGroup
+		width="100%">
+		
+		<s:Label 
+			left="3" right="3" top="3" bottom="3" 
+			fontSize.hovered='14' fontStyle.hovered="italic"
+			text="{ UtilsResources.getKey(EnumsLanguage.ELAPSED_TIME) + ' '+ data.dateAndTime }"/>
+		
+		<s:Label 
+			left="3" right="3" top="3" bottom="3" 
+			fontSize.hovered='14' fontStyle.hovered="italic"
+			text="{ UtilsResources.getKey(EnumsLanguage.DATE) + ' '+ data.elapsedTransmissionSec }"/>	
+		
+	</s:HGroup>
+	
+</s:ItemRenderer>

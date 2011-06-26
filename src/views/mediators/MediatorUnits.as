@@ -10,6 +10,7 @@ package views.mediators
 	import uk.co.baremedia.gnomo.models.ModelModes;
 	import uk.co.baremedia.gnomo.models.ModelNetworkManager;
 	import uk.co.baremedia.gnomo.presentation.PresentationUnits;
+	import uk.co.baremedia.gnomo.signals.SignalNotifier;
 	
 	import views.components.ComponentUnits;
 	
@@ -32,7 +33,8 @@ package views.mediators
 															_injector.getInstance(ControlPersistedData),
 															_injector.getInstance(ModelNetworkManager),
 															_injector.getInstance(ModelModes),
-															_injector.getInstance(ModelAudio));
+															_injector.getInstance(ModelAudio),
+															_injector.getInstance(SignalNotifier));
 		}
 		
 		override public function onRemove():void
