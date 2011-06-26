@@ -28,6 +28,7 @@
 			import uk.co.baremedia.gnomo.enums.EnumsScreens;
 			import uk.co.baremedia.gnomo.utils.UtilsResources;
 			
+			import views.ListView;
 			import views.components.ComponentLogsDay;
 			import views.components.ComponentScreenModes;
 			import views.components.ComponentUnits;
@@ -209,7 +210,7 @@
 		</s:icon>
 	</s:ViewNavigator>
 	
-	<s:ViewNavigator label="{ UtilsResources.getKey(EnumsLanguage.INFO) }" firstView="{ ComponentScreenModes }" width="100%" height="100%">
+	<s:ViewNavigator label="{ UtilsResources.getKey(EnumsLanguage.INFO) }" firstView="{ ListView }" width="100%" height="100%">
 		
 		<s:icon>
 			<s:MultiDPIBitmapSource  source160dpi="{ Images.infoBaby_32x24 }"
