@@ -174,8 +174,6 @@
 				id="slider"
 				thumbRelease="_presentationModel.volume = slider.value"/>
 			
-			
-			
 			<s:Button 
 				label="{ UtilsResources.getKey(EnumsLanguage.LISTEN_NOW) }" 
 				click=" _presentationModel.listenOrStopListening(true); "
@@ -212,7 +210,7 @@
 			<s:Button 
 				label="{ _presentationModel.textQuitButton }" 
 				click=" _presentationModel.disconnectOrConnect() "
-				enabled="{ _presentationModel.connected }"
+				enabled="{ (_presentationModel.receiving || _presentationModel.broadcasting) }"
 				width="100%"/>
 			
 		</s:Group>
