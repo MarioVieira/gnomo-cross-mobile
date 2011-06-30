@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<s:ItemRenderer 
+<s:ListFormItemRenderer 
 	xmlns:fx="http://ns.adobe.com/mxml/2009" 
 	xmlns:mx="library://ns.adobe.com/flex/mx" 
 	xmlns:s="library://ns.adobe.com/flex/spark"
@@ -7,8 +7,15 @@
 	styleName="listFormItemRenderer">
 	<fx:Script>
 		<![CDATA[
+			import assets.Images;
+			
 			import uk.co.baremedia.gnomo.enums.EnumsLanguage;
+			import uk.co.baremedia.gnomo.utils.UtilsDate;
 			import uk.co.baremedia.gnomo.utils.UtilsResources;
+			import uk.co.baremedia.gnomo.utils.UtilsStaticUIInfo;
+			import uk.co.baremedia.gnomo.vo.VOLog;
+			
+			import views.components.ComponentLogs;
 		]]>
 	</fx:Script>
 	
@@ -46,24 +53,23 @@
 		
 	</fx:Style>
 	
-	<s:states> 
-		<s:State name="normal"/> 
-		<s:State name="hovered"/> 
-	</s:states> 
-	
 	<s:HGroup
-		width="100%">
+		width="100%"
+		resizeEffect="Move"
+		horizontalAlign="right">
 		
 		<s:Label 
 			left="3" right="3" top="3" bottom="3" 
-			fontSize.hovered='14' fontStyle.hovered="italic"
-			text="{ UtilsResources.getKey(EnumsLanguage.ELAPSED_TIME) + ' '+ data.dateAndTime }"/>
-		
-		<s:Label 
-			left="3" right="3" top="3" bottom="3" 
-			fontSize.hovered='14' fontStyle.hovered="italic"
-			text="{ UtilsResources.getKey(EnumsLanguage.DATE) + ' '+ data.elapsedTransmissionSec }"/>	
+			text="{ UtilsDate.getReabeableDateFromStringDate(data.dateAndTime) }"/>
+	
+		<s:Image
+			source="{ Images.removeListIcon }"
+			visible="{ UtilsStaticUIInfo.logsShowEditButton }"
+			click="ComponentLogs(parentDocument).presentationModel.removeLog(data as VOLog)"
+			showEffect="Fade"
+			hideEffect="Fade"/>
 		
 	</s:HGroup>
 	
-</s:ItemRenderer>
+	
+</s:ListFormItemRenderer>

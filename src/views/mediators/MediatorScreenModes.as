@@ -9,7 +9,7 @@ package views.mediators
 	import uk.co.baremedia.gnomo.models.ModelDeviceInfo;
 	import uk.co.baremedia.gnomo.presentation.PresentationScreenModes;
 	
-	import views.components.ComponentScreenModes;
+	import views.components.ComponentInfo;
 	
 	public class MediatorScreenModes extends MediatorInit
 	{
@@ -19,10 +19,10 @@ package views.mediators
 		{
 			super.init(injector);
 			_injector 	= injector;
-			_view 		= injector.getInstance(ComponentScreenModes);
+			_view 		= injector.getInstance(ComponentInfo);
 		}
 		
-		public var _view	 				: ComponentScreenModes;
+		public var _view	 				: ComponentInfo;
 		
 		override public function onRegister():void
 		{ 

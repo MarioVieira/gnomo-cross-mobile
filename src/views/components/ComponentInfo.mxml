@@ -47,12 +47,4 @@
 		</s:Group>
 	</s:Scroller>
 	
-	<s:actionContent>
-		
-		<s:Button 
-			label="{ UtilsResources.getKey(EnumsLanguage.INSTRUCTIONS_BUTTON) }" 
-			click="navigator.pushView(ComponentScreenConnect)"/>
-		
-	</s:actionContent>
-	
 </s:View>
