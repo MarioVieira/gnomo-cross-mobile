@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		xmlns:s="library://ns.adobe.com/flex/spark" 
+		
+		title="{ UtilsResources.getKey(EnumsLanguage.LOGS) }"
+		
+		creationComplete="onCreationComplete(event)">
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<fx:Script>
+		<![CDATA[
+			import org.as3.mvcsInjector.utils.Tracer;
+			
+			import uk.co.baremedia.gnomo.enums.EnumsLanguage;
+			import uk.co.baremedia.gnomo.presentation.PresentationLogs;
+			import uk.co.baremedia.gnomo.utils.UtilsResources;
+			import uk.co.baremedia.gnomo.utils.UtilsStaticUIInfo;
+			
+			[Bindable] public var presentationModel:PresentationLogs;
+			
+			import mx.core.DPIClassification;
+			import mx.core.FlexGlobals;
+			import mx.events.FlexEvent;
+			
+			protected function onCreationComplete(event:FlexEvent):void
+			{
+				Tracer.log(this, "onCreationComplete - Capabilities.version.indexOf(IOS): "+Capabilities.version);
+				if (Capabilities.version.indexOf("IOS") == 0)
+				{
+					var padding:Number = (10 * FlexGlobals.topLevelApplication.applicationDPI / DPIClassification.DPI_160);
+					list.top = list.bottom = list.left = list.right = padding;
+				}
+			}
+		]]>
+	</fx:Script>
+	
+	
+	<fx:Style>
+		@namespace s "library://ns.adobe.com/flex/spark";
+		@namespace f "spark.skins.mobile.*";
+		
+		@media (os-platform: "IOS")
+		{
+			.listFormItemRenderer
+			{
+				borderStyle: rounded;
+				cornerRadius: 10;
+			}
+			
+			.listForm #titleDisplay
+			{
+				backgroundAlpha: 0;
+				color: #4C566C;
+				fontSize: 18;
+			}
+		}
+		
+		@media (os-platform: "IOS") and (application-dpi: 320)
+		{
+			.listFormItemRenderer
+			{
+				cornerRadius: 20;
+			}
+			
+			.listForm #titleDisplay
+			{
+				fontSize: 36;
+			}
+		}
+		
+		
+		@media (os-platform: "IOS")
+		{
+			.buyButton
+			{
+				chromeColor: #009900;
+				color: #FFFFFF;
+				textShadowColor: #000000;
+			}
+		}
+		
+	</fx:Style>
+	
+	<s:Scroller width="100%" height="100%">
+		<s:Group width="100%" height="100%">
+			
+			<!-- Custom List with optional title skin part -->
+			<s:ListForm 
+				id="list"
+				width="100%" height="100%"
+				title="{ UtilsResources.getKey(EnumsLanguage.INSTRUCTIONS_LOG) }"
+				dataProvider="{ presentationModel.logs }"
+				styleName="listForm"
+				labelField="elapsedTransmissionSec"
+				itemRenderer="views.components.itemRenderer.RendererLogs"/>
+		</s:Group>
+	</s:Scroller>
+
+	<s:actionContent>
+		<s:Button 
+			label="{ presentationModel.textEditButton }" 
+			click=" presentationModel.optionClick();" />
+	</s:actionContent>
+	
+	
+	<s:viewMenuItems>
+		<s:ViewMenuItem label="Remove all" styleName="printButton"/>
+		<s:ViewMenuItem label="Edit" styleName="editButton" click="presentationModel.editLogs(true)"/>
+	</s:viewMenuItems>
+	
+</s:View>

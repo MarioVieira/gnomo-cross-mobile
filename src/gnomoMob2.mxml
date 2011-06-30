@@ -29,8 +29,8 @@
 			import uk.co.baremedia.gnomo.utils.UtilsResources;
 			
 			import views.ListView;
-			import views.components.ComponentLogsDay;
-			import views.components.ComponentScreenModes;
+			import views.components.ComponentLogs;
+			import views.components.ComponentInfo;
 			import views.components.ComponentUnits;
 			
 			protected var _mobNavigator		:MobileNavigator;
@@ -202,7 +202,7 @@
 		
 	</s:ViewNavigator>
 	
-	<s:ViewNavigator label="{ UtilsResources.getKey(EnumsLanguage.LOGS) }" firstView="{ ComponentLogsDay }" width="100%" height="100%">
+	<s:ViewNavigator label="{ UtilsResources.getKey(EnumsLanguage.LOGS) }" firstView="{ ComponentLogs }" width="100%" height="100%">
 		<s:icon>
 			<s:MultiDPIBitmapSource source160dpi="{ Images.logBaby_32x24 }"
 									source240dpi="{ Images.logBaby_48x36 }"
@@ -213,6 +213,7 @@
 	<s:ViewNavigator label="{ UtilsResources.getKey(EnumsLanguage.INFO) }" firstView="{ ListView }" width="100%" height="100%">
 		
 		<s:icon>
+			
 			<s:MultiDPIBitmapSource  source160dpi="{ Images.infoBaby_32x24 }"
 									 source240dpi="{ Images.infoBaby_48x36 }"
 									 source320dpi="{ Images.infoBaby_56x42 }" />
