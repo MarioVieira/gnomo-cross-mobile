@@ -9,7 +9,7 @@ package uk.co.baremedia.gnomo.mobile.core
 	import views.components.ComponentUnits;
 	import views.mediators.MediatorAlerts;
 	import views.mediators.MediatorScreenLogs;
-	import views.mediators.MediatorScreenModes;
+	import views.mediators.MediatorScreenInfo;
 	import views.mediators.MediatorUnits;
 	
 	
@@ -19,7 +19,7 @@ package uk.co.baremedia.gnomo.mobile.core
 		{
 			mediatorMap.mapView(ComponentUnits, MediatorUnits);
 			mediatorMap.mapView(ComponentLogs, MediatorScreenLogs);
-			mediatorMap.mapView(ComponentInfo, MediatorScreenModes);
+			mediatorMap.mapView(ComponentInfo, MediatorScreenInfo);
 		}
 	}
 }

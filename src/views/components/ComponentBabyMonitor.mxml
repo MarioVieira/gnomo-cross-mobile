@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" xmlns:local="*">
+	
+	
+	<s:layout>
+		<s:BasicLayout/>
+	</s:layout>
+	
+	
+	
+	<fx:Script>
+		<![CDATA[
+			import org.as3.mvcsInjector.utils.Tracer;
+			
+			import uk.co.baremedia.gnomo.models.ModelModes;
+			import uk.co.baremedia.gnomo.utils.RateVO;
+			import uk.co.baremedia.gnomo.utils.Resizer;
+			
+			[Bindable] public var model					:ModelModes;
+			[Bindable] public var activityMonitorWidth	:Number;
+			[Bindable] public var activityMonitorHeight	:Number;
+			
+			[Bindable] protected var _visorWidth 		:Number;
+			[Bindable] protected var _visorHeight 		:Number;
+			[Bindable] protected var _topElementsY 		:Number = 30;
+			
+			protected var _scaleRate					:RateVO;
+			
+			public function set scalingRate(value:RateVO):void
+			{
+				if(!_scaleRate || _scaleRate.rate != value.rate)
+				{
+					_scaleRate = value;	
+					
+					// - Resizer.scaleIt(connectedStatus.width, value): "+Resizer.scaleIt(connectedStatus.width, value)+
+					Tracer.log(this, "scalingRate value.rate: "+value.rate+"  value.increaseNotDecrease: "+value.increaseNotDecrease);
+					Tracer.log(this, "connectedStatus.width: "+connectedStatus.width+"  scaled: "+Resizer.scaleIt(connectedStatus.width, value) );
+					/* if(!isNaN(connStatRec.width) && connStatRec.width != 0 && connStatRec.width != Infinity &&
+						!isNaN(connStatRec.height) && connStatRec.height != 0 && connStatRec.height != Infinity)
+					{
+						
+					
+					} */
+					/* var connStatWidth	:Number = Resizer.scaleIt(connectedStatus.origWidth, value);
+					var connStatHeight	:Number = Resizer.scaleIt(connectedStatus.origHeight, value);
+					
+					var topTextWidth	:Number = Resizer.scaleIt(connectedStatus.origWidth, value);
+					var topTextHeight	:Number = Resizer.scaleIt(connectedStatus.origHeight, value);
+					
+					connectedStatus.width  	= connStatWidth;
+					connectedStatus.height 	= connStatHeight;
+					
+					topTextNote.height 		= topTextHeight;
+					topTextNote.width		= topTextWidth; */ 
+				}
+			}
+			
+			override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
+			{
+				super.updateDisplayList(unscaledWidth, unscaledHeight);
+				invalidateDisplayList();
+				updateElementsMeasure();
+				//Tracer.log(this, "_visorWidth: "+_visorWidth+" _visorHeight: "+_visorHeight);
+			}
+			
+			protected function updateElementsMeasure():void
+			{
+				var connStatRec	:Rectangle  = Resizer.resizeMaintainingAspectRatio(connectedStatus.origWidth, connectedStatus.height, 0, activityMonitorWidth / 10); 
+				Tracer.log(this, "connStatRec.width: "+connStatRec.width+" connStatRec.height: "+connStatRec.height);
+				
+				if(!isNaN(connStatRec.width) && connStatRec.width != 0 && connStatRec.width != Infinity &&
+					!isNaN(connStatRec.height) && connStatRec.height != 0 && connStatRec.height != Infinity)
+				{
+					//connectedStatus.setActualSize(connStatRec.width, connStatRec.height);
+					connectedStatus.width 		= connStatRec.width; 
+					connectedStatus.height 		= connStatRec.height;
+				}
+					
+				 
+				//var topTextRec	:Rectangle = Resizer.resizeMaintainingAspectRatio(connectedStatus.origWidth, connectedStatus.height, 0, activityMonitorWidth / 1.5);
+				
+			/* 	connectedStatus.width 		= 300; 
+				connectedStatus.height 		= 40; */
+			}
+			
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	
+	<s:states>
+		<s:State name="noBabyUnit"/>
+		<s:State name="sleeping"/>
+		<s:State name="activity"/>
+	</s:states>
+	
+	<local:Visor
+		id="visor"
+		width="100%"
+		height="100%" />
+	
+	
+	
+	<s:HGroup
+		id="topElements"
+		x="{ width / 2 - topElements.width / 2 }"
+		y="{ _topElementsY }"
+		horizontalAlign="left"
+		verticalAlign="top"
+		width="90%">
+		
+		<local:TopTexNote
+			id="topTextNote"
+			textTopNoteValue="{ model.textTopNote }"/>
+		
+		<!--<s:Spacer
+			width="100%"/>-->
+		
+		<local:ConnectedStatus
+			id="connectedStatus"
+			connected="{ model.localNetworkConnected }"/>
+		
+	</s:HGroup>
+	
+	<local:MovieClipBaby
+		id="monitor"
+		x="{ width / 2 - monitor.width / 2 }"
+		y="{ ((height / 2 - monitor.height / 2) / 5) * 3 }"
+		width="{ activityMonitorWidth }"
+		height="{ activityMonitorHeight }"
+		mode="{ model.monitorMode }" />
+	
+</s:Group>

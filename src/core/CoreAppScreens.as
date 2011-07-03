@@ -10,7 +10,7 @@ package core
 	import views.components.ComponentLogs;
 	import views.components.ComponentUnits;
 	import views.mediators.MediatorScreenLogs;
-	import views.mediators.MediatorScreenModes;
+	import views.mediators.MediatorScreenInfo;
 	import views.mediators.MediatorUnits;
 	
 	public class CoreAppScreens
@@ -20,8 +20,8 @@ package core
 			var screens:Vector.<VOScreen> = new Vector.<VOScreen>;
 			
 			screens.push( new VOScreen(ComponentUnits, MediatorUnits, EnumsScreens.SCREEN_UNITS, EnumsViewNavigation.TYPE_SCREEN) );
-			screens.push( new VOScreen(ComponentInfo, MediatorScreenModes, EnumsScreens.SCREEN_MODES, EnumsViewNavigation.TYPE_SCREEN) );
 			screens.push( new VOScreen(ComponentLogs, MediatorScreenLogs, EnumsScreens.SCREEN_LOG_DAY, EnumsViewNavigation.TYPE_SCREEN) );
+			screens.push( new VOScreen(ComponentInfo, MediatorScreenInfo, EnumsScreens.SCREEN_MODES, EnumsViewNavigation.TYPE_SCREEN) );
 			
 			return new DescriptoViews(firstScreenName, screens); 
 		}

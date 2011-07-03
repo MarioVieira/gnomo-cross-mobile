@@ -22,6 +22,7 @@
 			
 			import spark.components.SkinnablePopUpContainer;
 			
+			
 			import uk.co.baremedia.gnomo.core.CoreAppFrameWorkDescriptors;
 			import uk.co.baremedia.gnomo.descriptors.DescriptorLanguage;
 			import uk.co.baremedia.gnomo.enums.EnumsLanguage;
@@ -29,8 +30,8 @@
 			import uk.co.baremedia.gnomo.utils.UtilsResources;
 			
 			import views.ListView;
-			import views.components.ComponentLogs;
 			import views.components.ComponentInfo;
+			import views.components.ComponentLogs;
 			import views.components.ComponentUnits;
 			
 			protected var _mobNavigator		:MobileNavigator;
@@ -138,60 +139,8 @@
 		
 	</fx:Declarations>
 	
-	<fx:Style>
-		@namespace s "library://ns.adobe.com/flex/spark";
-		
-		@media (os-platform: "Android")
-		{
-			/* Android Gingerbread style Panel skin*/
-			/* not picked up from mobile_examples.swc because the spark theme has higher priority */
-			s|Panel
-			{
-				skinClass: ClassReference("spark.skins.mobile.PanelSkin");
-				borderWeight: 6;
-				borderColor: #666666;
-				backgroundColor: #FFFFFF;
-				fontWeight: normal;
-			}
-			
-			s|Panel s|Button
-			{
-				fontWeight: normal;
-			}
-			
-			s|Panel #titleDisplay
-			{
-				color: #FFFFFF;
-				fontSize: 28;
-			}
-		}
-		
-		@media (os-platform: "Android") and (application-dpi: 160)
-		{
-			s|Panel
-			{
-				borderWeight: 4;
-			}
-			
-			s|Panel #titleDisplay
-			{
-				fontSize: 18;
-			}
-		}
-		
-		@media (os-platform: "Android") and (application-dpi: 320)
-		{
-			s|Panel
-			{
-				borderWeight: 8;
-			}
-			
-			s|Panel #titleDisplay
-			{
-				fontSize: 36;
-			}
-		}
-	</fx:Style>
+	<fx:Style
+		source="/styles.css"/>
 	
 	<s:ViewNavigator id="navigator" label="{ UtilsResources.getKey(EnumsLanguage.BABY_CALL) }" firstView="{ ComponentUnits }" width="100%" height="100%">
 		

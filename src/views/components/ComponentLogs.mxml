@@ -103,10 +103,9 @@
 			click=" presentationModel.optionClick();" />
 	</s:actionContent>
 	
-	
 	<s:viewMenuItems>
-		<s:ViewMenuItem label="Remove all" styleName="printButton"/>
-		<s:ViewMenuItem label="Edit" styleName="editButton" click="presentationModel.editLogs(true)"/>
+		<s:ViewMenuItem label="{ UtilsResources.getKey(EnumsLanguage.REMOVE_ALL_LOGS)}" styleName="printButton" click="presentationModel.removeAllLogs();"/>
+		<s:ViewMenuItem label="{ UtilsResources.getKey(EnumsLanguage.EDIT) }" styleName="editButton" click="presentationModel.editLogs(true)"/>
 	</s:viewMenuItems>
 	
 </s:View>

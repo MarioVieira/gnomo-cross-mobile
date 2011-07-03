@@ -1,52 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
 		xmlns:s="library://ns.adobe.com/flex/spark" 
+		xmlns:local="*"
+		xmlns:p2p="com.projectcocoon.p2p.*" 
+		xmlns:components="views.components.*"
 		
-		title="{ UtilsResources.getKey(EnumsLanguage.BABY_CALL) }" xmlns:p2p="com.projectcocoon.p2p.*" xmlns:components="views.components.*">
-	
-	<!--<fx:Style>
-		
-		@namespace s "library://ns.adobe.com/flex/spark";
-		@namespace f "spark.skins.mobile.*";
-		
-		@media (os-platform: "IOS")
-		{ 
-			.startButton
-			{
-				chromeColor: #009900;
-				color: #FFFFFF;
-				textShadowColor: #000000;
-			}
-			
-			.stopButton
-			{
-				chromeColor: #cc3300;
-				color: #FFFFFF;
-				textShadowColor: #000000;
-			}
-		}
-		
-		@media (os-platform: "ANDROID")
-		{ 
-			.startButton
-			{
-				chromeColor: #009900;
-				color: #FFFFFF;
-				textShadowColor: #000000;
-			}
-			
-			.stopButton
-			{
-				chromeColor: #cc3300;
-				color: #FFFFFF;
-				textShadowColor: #000000;
-			}
-		}
-		
-		
-	</fx:Style>	-->
-	
-	
+		title="{ UtilsResources.getKey(EnumsLanguage.BABY_CALL) }" 
+		creationComplete=" updateMeasures() " >
 	
 	<fx:Script>
 		<![CDATA[ 
@@ -55,29 +15,37 @@
 			import mx.core.FlexGlobals;
 			import mx.events.ResizeEvent;
 			
+			import org.as3.mvcsInjector.utils.Tracer;
+			
 			import spark.components.SkinnablePopUpContainer;
 			
 			import uk.co.baremedia.gnomo.enums.EnumsLanguage;
 			import uk.co.baremedia.gnomo.presentation.PresentationUnits;
+			import uk.co.baremedia.gnomo.utils.DecreaseIncreaseRate;
+			import uk.co.baremedia.gnomo.utils.RateVO;
+			import uk.co.baremedia.gnomo.utils.Resizer;
 			import uk.co.baremedia.gnomo.utils.UtilsResources;
 			
 			[Bindable] protected var _presentationModel:PresentationUnits;
+			[Bindable] protected var _monitorScalingRate:RateVO;
 			
+			[Bindable] private var _sliderWidth:Number;
 			private var _currentAlert:SkinnablePopUpContainer;
-			private var _accelerometerInterval:uint;
-			private var _acc:Accelerometer;
 			
-			override protected function childrenCreated():void
+			override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
 			{
-				
+				super.updateDisplayList(unscaledWidth, unscaledHeight);
+				invalidateDisplayList();
+				updateMeasures();
 			}
-		
+			
 			public function set presentationModel(value:PresentationUnits):void
 			{
 				_presentationModel = value;
 				_presentationModel.openAlert.add(onOpenAlert);
 				alerts.closeAlert.add(onCloseAlert);
 				_presentationModel.checkHasToShowAlerts();
+				monitor.model = _presentationModel.modelMonitor;
 			}
 			
 			public function get presentationModel():PresentationUnits
@@ -127,6 +95,34 @@
 					_currentAlert.height = FlexGlobals.topLevelApplication.systemManager.screen.height;
 				}
 			}
+			
+			[Bindable] protected var _monitorWidth	:Number;
+			[Bindable] protected var _monitorHeight	:Number;
+			
+			private function setMonitorMeasures():void
+			{
+				var origWidth:Number 		= monitor.monitor.mcWidth; 
+				var origHeight:Number 		= monitor.monitor.mcHeight;
+				
+				//_monitorScalingRate = (heightNotWidth) ? DecreaseIncreaseRate.findRates(origWidth, group.width / 1.5) : DecreaseIncreaseRate.findRates(origHeight, group.height / 1.7);
+				var rect:Rectangle  = (group.height > group.width) ? Resizer.scaleByAspectRatio(origWidth, origHeight, 0, group.width / 1.5) : Resizer.scaleByAspectRatio(origWidth, origHeight, group.height / 1.7, 0); 
+				
+				_monitorWidth 	= rect.width;
+				_monitorHeight 	= rect.height;
+			}
+			
+			protected function setSliderWidth():void
+			{
+				if(width <= 320) 						_sliderWidth = width * .90;
+				else if(width >= 400 && width < 680)  	_sliderWidth = width * .70;
+				else 									_sliderWidth = width * .60;
+			}
+			
+			protected function updateMeasures():void
+			{
+				setSliderWidth();
+				setMonitorMeasures();
+			}		
 		]]>
 	</fx:Script>
 	
@@ -137,83 +133,114 @@
 			height="100%"/>	
 	</fx:Declarations>
 	
-	<s:Scroller width="100%" height="100%" verticalScrollPolicy="on">
+	<s:Group
+		width="100%"
+		height="100%">
 		
-		<s:Group width="100%" height="100%">
+		<local:Background
+			width="100%"
+			height="100%"/>
+		
+		<s:Scroller width="100%" height="100%" verticalScrollPolicy="on">
 			
-			<s:layout>
-				<s:MultiDPIVerticalLayout 
-					sourceDPI="160"
-					paddingTop="10" paddingBottom="10" paddingLeft="10" paddingRight="10"/>
-			</s:layout>
-			
-			<s:Button 
-				label="{ UtilsResources.getKey(EnumsLanguage.SET_AS_BABY_UNIT) }" 
-				click=" _presentationModel.setAsBabyUnit(); " 
-				enabled="{ !_presentationModel.broadcasting }"
-				width="100%"/>
-			
-			<s:TextArea 
+			<s:Group width="100%" height="100%">
+				
+				<s:layout>
+					<s:MultiDPIVerticalLayout 
+						sourceDPI="160"
+						paddingTop="10" paddingBottom="10" paddingLeft="10" paddingRight="10"
+						horizontalAlign="center"/>
+				</s:layout>
+				
+				<!--<s:TextArea 
 				borderVisible="false" 
 				contentBackgroundAlpha="0" 
 				width="100%" 
 				editable="false" 
 				selectable="false"
-				text="{ _presentationModel.textTopNote }" />
-			
-			<s:TextArea
+				text="{ _presentationModel.textTopNote }" />-->
+				
+				<!--<s:TextArea
 				borderVisible="false" 
 				contentBackgroundAlpha="0" 
 				width="100%" 
 				editable="false" 
 				selectable="false"
-				text="{ _presentationModel.textConnectionStatus }" />
-			
-			<s:HSlider
+				text="{ _presentationModel.textConnectionStatus }" />-->
+				
+				<!--<s:HSlider
 				width="100%"
 				id="slider"
-				thumbRelease="_presentationModel.volume = slider.value"/>
-			
-			<s:Button 
-				label="{ UtilsResources.getKey(EnumsLanguage.LISTEN_NOW) }" 
-				click=" _presentationModel.listenOrStopListening(true); "
-				enabled="{ _presentationModel.canListen }"
-				styleName="startButton"
-				width="100%"/>
-			
-			<s:Button 
-				label="{ UtilsResources.getKey(EnumsLanguage.STOP_LISTENING) }" 
-				click=" _presentationModel.listenOrStopListening(false)"
-				enabled="{ _presentationModel.canStopListening }"
-				styleName="stopButton"
-				width="100%"/>
-			
-			<!--
-			<s:HGroup
-				width="100%">
+				thumbRelease="_presentationModel.volume = slider.value"/>-->
+				
+				<s:Group
+					id="group"
+					width="100%"
+					height="100%">
+					
+					<s:layout>
+						<s:HorizontalLayout
+							horizontalAlign="center"/>
+					</s:layout>
+					
+					<components:ComponentBabyMonitor
+						id="monitor"
+						scalingRate="{ _monitorScalingRate }"
+						activityMonitorWidth="{ _monitorWidth }"
+						activityMonitorHeight="{ _monitorHeight }"
+						width="100%"
+						height="100%"/>
+				
+				</s:Group>
+				
+				<s:VGroup
+					horizontalAlign="left">
+					
+					<s:HSlider
+						width="{ _sliderWidth }"
+						skinClass="views.skins.SkinkHSlider" />
+					
+					<s:Label
+						text="volume"
+						paddingLeft="47"
+						styleName="greenColor"/>
+					
+				</s:VGroup>
+				
+				
 				
 				<s:Button 
-				label="start parent" 
-				click=" _presentationModel.fakeAudioActivity(true) " 
-				enabled="{ _presentationModel.broadcasting }"
-				width="100%"/>
+					label="{ UtilsResources.getKey(EnumsLanguage.LISTEN_NOW) }" 
+					click=" _presentationModel.listenOrStopListening(true); "
+					enabled="{ _presentationModel.canListen }"
+					styleName="greenColor"
+					width="100%"/>
+				
+				<!--<s:Button 
+					label="{ UtilsResources.getKey(EnumsLanguage.STOP_LISTENING) }" 
+					click=" _presentationModel.listenOrStopListening(false)"
+					enabled="{ _presentationModel.canStopListening }"
+					styleName="stopButton"
+					width="100%"/>-->
 				
 				<s:Button 
-				label="ask to stop" 
-				click=" _presentationModel.fakeAudioActivity(false) " 
-				enabled="{ _presentationModel.broadcasting }"
-				width="100%" />
+					label="{ UtilsResources.getKey(EnumsLanguage.SET_AS_BABY_UNIT) }" 
+					click=" _presentationModel.setAsBabyUnit(); " 
+					enabled="{ !_presentationModel.broadcasting }"
+					styleName="greenColor"
+					width="100%"/>
 				
-			</s:HGroup>-->
-			
-			
-			<s:Button 
+				<!--<s:Button 
 				label="{ _presentationModel.textQuitButton }" 
 				click=" _presentationModel.disconnectOrConnect() "
 				enabled="{ (_presentationModel.receiving || _presentationModel.broadcasting) }"
-				width="100%"/>
+				width="100%"/>-->
+				
+			</s:Group>
 			
-		</s:Group>
+		</s:Scroller>
 		
-	</s:Scroller>
+	</s:Group>
+	
+	
 </s:View>

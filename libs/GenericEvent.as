@@ -1,0 +1,1 @@
+﻿package {	import flash.events.Event;	public class GenericEvent extends Event	{		public var data:*;				public function GenericEvent(type:String, data:*)		{			super(type,false,false);						this.data = data;		}		public override function clone():Event		{			return new GenericEvent(type, data);		}	}}

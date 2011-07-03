@@ -28,9 +28,8 @@
 			import uk.co.baremedia.gnomo.enums.EnumsScreens;
 			import uk.co.baremedia.gnomo.utils.UtilsResources;
 			
-			import views.ListView;
-			import views.components.ComponentLogs;
 			import views.components.ComponentInfo;
+			import views.components.ComponentLogs;
 			import views.components.ComponentUnits;
 			
 			protected var _mobNavigator		:MobileNavigator;
@@ -61,7 +60,6 @@
 			protected function getFrameWorkDescriptor():DescriptorAppFrameWork
 			{
 				var appDescriptor:DescriptorAppFrameWork 	= CoreAppFrameWorkDescriptors.getFrameWorkDescriptors( CoreAppScreens.getAppScreens(EnumsScreens.SCREEN_MODES) );
-				
 				appDescriptor.languageDescriptorClass 		= DescriptorLanguage;
 				appDescriptor.languageId			  		= 1;
 				
@@ -81,6 +79,7 @@
 			id="backButton" 
 			label="Back" 
 			click="_mobNavigator.backButton_clickHandler(event)" />
+		
 		<!--
 		<s:SkinnablePopUpContainer id="alertAgreement" backgroundAlpha="0.5" backgroundColor="0x000000">
 		<s:Panel title="{ UtilsResources.getKey(EnumsLanguage.AGREEMENT) }" horizontalCenter="0" verticalCenter="0" width="90%">
@@ -137,60 +136,9 @@
 		
 	</fx:Declarations>
 	
-	<fx:Style>
-		@namespace s "library://ns.adobe.com/flex/spark";
+	<fx:Style
+		source="/styles.css"/>  
 		
-		@media (os-platform: "Android")
-		{
-			/* Android Gingerbread style Panel skin*/
-			/* not picked up from mobile_examples.swc because the spark theme has higher priority */
-			s|Panel
-			{
-				skinClass: ClassReference("spark.skins.mobile.PanelSkin");
-				borderWeight: 6;
-				borderColor: #666666;
-				backgroundColor: #FFFFFF;
-				fontWeight: normal;
-			}
-			
-			s|Panel s|Button
-			{
-				fontWeight: normal;
-			}
-			
-			s|Panel #titleDisplay
-			{
-				color: #FFFFFF;
-				fontSize: 28;
-			}
-		}
-		
-		@media (os-platform: "Android") and (application-dpi: 160)
-		{
-			s|Panel
-			{
-				borderWeight: 4;
-			}
-			
-			s|Panel #titleDisplay
-			{
-				fontSize: 18;
-			}
-		}
-		
-		@media (os-platform: "Android") and (application-dpi: 320)
-		{
-			s|Panel
-			{
-				borderWeight: 8;
-			}
-			
-			s|Panel #titleDisplay
-			{
-				fontSize: 36;
-			}
-		}
-	</fx:Style>
 	
 	<s:ViewNavigator id="navigator" label="{ UtilsResources.getKey(EnumsLanguage.BABY_CALL) }" firstView="{ ComponentUnits }" width="100%" height="100%">
 		
@@ -210,7 +158,7 @@
 		</s:icon>
 	</s:ViewNavigator>
 	
-	<s:ViewNavigator label="{ UtilsResources.getKey(EnumsLanguage.INFO) }" firstView="{ ListView }" width="100%" height="100%">
+	<s:ViewNavigator label="{ UtilsResources.getKey(EnumsLanguage.INFO) }" firstView="{ ComponentInfo }" width="100%" height="100%">
 		
 		<s:icon>
 			

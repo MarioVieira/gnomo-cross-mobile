@@ -38,38 +38,69 @@
 			}
 		}
 		
-		@media (os-platform: "IOS") and (application-dpi: 320)
-		{
-			.listFormItemRenderer
-			{
-				cornerRadius: 20;
-			}
-			
-			.listForm #titleDisplay
-			{
-				fontSize: 36;
-			}
-		}
-		
 	</fx:Style>
 	
-	<s:HGroup
+	<s:HGroup 
 		width="100%"
-		resizeEffect="Move"
-		horizontalAlign="right">
+		height="100%"
+		verticalAlign="middle">
 		
-		<s:Label 
-			left="3" right="3" top="3" bottom="3" 
-			text="{ UtilsDate.getReabeableDateFromStringDate(data.dateAndTime) }"/>
-	
-		<s:Image
-			source="{ Images.removeListIcon }"
-			visible="{ UtilsStaticUIInfo.logsShowEditButton }"
-			click="ComponentLogs(parentDocument).presentationModel.removeLog(data as VOLog)"
-			showEffect="Fade"
-			hideEffect="Fade"/>
+		<!--
+		<s:layout>
+		<s:BasicLayout/>
+		</s:layout>
+		
+		-->		
+		
+		<s:VGroup
+			id="vBox"
+			paddingTop="{ vBox.height / 2 - date.height / 2 }"
+			height="100%">
+			
+			<s:Label
+				id="date"
+				
+				text="{ UtilsDate.getReabeableDateAndTime(data.dateAndTime) }"
+				depth="10">
+				
+			<!--	<s:postLayoutTransformOffsets>
+					
+					<s:TransformOffsets
+						y="{ vBox.height / 2 - date.height / 2 }"/>
+					
+				</s:postLayoutTransformOffsets>
+				-->
+					
+				
+				</s:Label>
+			
+		</s:VGroup>
+		
+		<s:VGroup
+			id="vBox2"
+			paddingTop="{ vBox2.height / 2 - image.height / 2 }"
+			height="100%">
+			
+			
+			<s:Image
+				id="image"
+				source="{ Images.removeListIcon }"
+				visible="{ UtilsStaticUIInfo.logsShowEditButton }"
+				includeInLayout="{ UtilsStaticUIInfo.logsShowEditButton }"
+				click="ComponentLogs(parentDocument).presentationModel.removeLog(data as VOLog)"
+				
+				showEffect="Fade"
+				hideEffect="Fade"/>
+			
+		</s:VGroup>
+		
 		
 	</s:HGroup>
+	
+	<fx:Declarations>
+		
+		
+	</fx:Declarations>
 	
 	
 </s:ListFormItemRenderer>

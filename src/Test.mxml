@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" xmlns:local="*">
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	
+	
+	<s:HSlider
+		width="400"
+		y="100"
+		skinClass="views.skins.SkinkHSlider" />
+	
+	<fx:Script>
+		<![CDATA[
+			import org.as3.mvcsInjector.utils.Tracer;
+			
+			import uk.co.baremedia.gnomo.utils.Resizer;
+			
+			
+			override protected function childrenCreated():void
+			{
+				var rect:Rectangle = Resizer.scaleByAspectRatio(320, 220, 0, 345);
+				Tracer.log(this, "rect - width: "+rect.width+" height: "+rect.height);
+			}
+		]]>
+	</fx:Script>
+	
+</s:Application>

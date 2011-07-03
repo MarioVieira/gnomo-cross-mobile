@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- http://blog.flexexamples.com/2010/04/14/creating-a-custom-track-skin-on-a-spark-hslider-control-in-flex-4/ -->
+<s:SparkSkin name="CustomHSliderTrackSkin"
+			 xmlns:fx="http://ns.adobe.com/mxml/2009"
+			 xmlns:s="library://ns.adobe.com/flex/spark"
+			 xmlns:fb="http://ns.adobe.com/flashbuilder/2009">
+	<!-- states -->
+	<s:states>
+		<s:State name="disabled" />
+		<s:State name="normal" />
+	</s:states>
+	
+	<fx:Metadata>
+		[HostComponent("spark.components.HSlider")]
+	</fx:Metadata> 
+	
+	<fx:Script fb:purpose="styling">
+		<![CDATA[
+			override protected function initializationComplete():void {
+				useChromeColor = true;
+				super.initializationComplete();
+			}
+		]]>
+	</fx:Script>
+	
+	<!-- fill -->
+	<s:Rect left="0" right="0" top="0" bottom="0" radiusX="4" radiusY="4" height="9" width="100%">
+		<s:fill>
+			<s:SolidColor color="#848F86"/>
+		</s:fill>
+	</s:Rect>
+	
+	<!-- hit area -->
+	<s:Rect left="0" right="0" top="0" bottom="0" width="100%" height="12">
+		<s:fill>
+			<s:SolidColor alpha="0"/>
+		</s:fill>
+	</s:Rect>
+	
+	<!--- Defines the skin class for the HSliderSkin's thumb. The default skin class is HSliderThumbSkin. -->
+	<s:Button 
+		id="thumb"
+		top="0" bottom="0"
+		width="30" height="30" />
+	
+</s:SparkSkin>
