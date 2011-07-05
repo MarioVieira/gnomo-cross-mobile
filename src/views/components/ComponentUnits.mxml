@@ -6,7 +6,7 @@
 		xmlns:components="views.components.*"
 		
 		title="{ UtilsResources.getKey(EnumsLanguage.BABY_CALL) }" 
-		creationComplete=" updateMeasures() " >
+		creationComplete=" updateMeasures() ">
 	
 	<fx:Script>
 		<![CDATA[ 
@@ -26,11 +26,19 @@
 			import uk.co.baremedia.gnomo.utils.Resizer;
 			import uk.co.baremedia.gnomo.utils.UtilsResources;
 			
-			[Bindable] protected var _presentationModel:PresentationUnits;
-			[Bindable] protected var _monitorScalingRate:RateVO;
+			public static const MONITOR_WIDTH:Number 	= 155;
+			public static const MONITOR_HEIGHT:Number 	= 107;
 			
-			[Bindable] private var _sliderWidth:Number;
+			[Bindable] protected var _presentationModel		:PresentationUnits;
+			[Bindable] protected var _monitorScalingRate	:RateVO;
+			[Bindable] private var _percentTopElements		:Number;
+			[Bindable] private var 	_sliderWidth			:Number;
+			[Bindable] protected var _monitorWidth			:Number;
+			[Bindable] protected var _monitorHeight			:Number;
+			[Bindable] private var _commonPadding			:int;
+			
 			private var _currentAlert:SkinnablePopUpContainer;
+		
 			
 			override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
 			{
@@ -96,16 +104,20 @@
 				}
 			}
 			
-			[Bindable] protected var _monitorWidth	:Number;
-			[Bindable] protected var _monitorHeight	:Number;
+			
+			protected function updateMeasures():void
+			{
+				setSliderWidth();
+				setMonitorMeasures();
+			}	
 			
 			private function setMonitorMeasures():void
 			{
-				var origWidth:Number 		= monitor.monitor.mcWidth; 
-				var origHeight:Number 		= monitor.monitor.mcHeight;
+				var heightNotWidth:Boolean 	= group.height > group.width;
 				
 				//_monitorScalingRate = (heightNotWidth) ? DecreaseIncreaseRate.findRates(origWidth, group.width / 1.5) : DecreaseIncreaseRate.findRates(origHeight, group.height / 1.7);
-				var rect:Rectangle  = (group.height > group.width) ? Resizer.scaleByAspectRatio(origWidth, origHeight, 0, group.width / 1.5) : Resizer.scaleByAspectRatio(origWidth, origHeight, group.height / 1.7, 0); 
+				//DecreaseIncreaseRate.findPercentage(origWidth, group.width / 1.5) : DecreaseIncreaseRate.findPercentage(origHeight, group.height / 1.7);
+				var rect:Rectangle  = (heightNotWidth) ? Resizer.scaleByAspectRatio(MONITOR_WIDTH, MONITOR_HEIGHT, 0, group.width / 1.5) : Resizer.scaleByAspectRatio(MONITOR_WIDTH, MONITOR_HEIGHT, group.height / 1.7, 0); 
 				
 				_monitorWidth 	= rect.width;
 				_monitorHeight 	= rect.height;
@@ -113,16 +125,27 @@
 			
 			protected function setSliderWidth():void
 			{
-				if(width <= 320) 						_sliderWidth = width * .90;
-				else if(width >= 400 && width < 680)  	_sliderWidth = width * .70;
-				else 									_sliderWidth = width * .60;
+				if(width <= 320) 		
+				{
+					_commonPadding			= 15;
+					_sliderWidth 			= width * .90;
+					_percentTopElements 	= 0;
+				}
+				else if(width >= 400 && width < 680)
+				{
+					_commonPadding			= 25;
+					_sliderWidth 			= width * .70;
+					_percentTopElements 	= .40;
+				}
+				else
+				{
+					_commonPadding			= 35;
+					_sliderWidth 			= width * .60;
+					_percentTopElements 	= .70;
+					
+				}
 			}
-			
-			protected function updateMeasures():void
-			{
-				setSliderWidth();
-				setMonitorMeasures();
-			}		
+				
 		]]>
 	</fx:Script>
 	
@@ -152,27 +175,6 @@
 						horizontalAlign="center"/>
 				</s:layout>
 				
-				<!--<s:TextArea 
-				borderVisible="false" 
-				contentBackgroundAlpha="0" 
-				width="100%" 
-				editable="false" 
-				selectable="false"
-				text="{ _presentationModel.textTopNote }" />-->
-				
-				<!--<s:TextArea
-				borderVisible="false" 
-				contentBackgroundAlpha="0" 
-				width="100%" 
-				editable="false" 
-				selectable="false"
-				text="{ _presentationModel.textConnectionStatus }" />-->
-				
-				<!--<s:HSlider
-				width="100%"
-				id="slider"
-				thumbRelease="_presentationModel.volume = slider.value"/>-->
-				
 				<s:Group
 					id="group"
 					width="100%"
@@ -185,9 +187,10 @@
 					
 					<components:ComponentBabyMonitor
 						id="monitor"
-						scalingRate="{ _monitorScalingRate }"
 						activityMonitorWidth="{ _monitorWidth }"
 						activityMonitorHeight="{ _monitorHeight }"
+						elementsPercentage="{ _percentTopElements }"
+						
 						width="100%"
 						height="100%"/>
 				
@@ -197,8 +200,10 @@
 					horizontalAlign="left">
 					
 					<s:HSlider
+						id="slider"
 						width="{ _sliderWidth }"
-						skinClass="views.skins.SkinkHSlider" />
+						skinClass="views.skins.SkinkHSlider"
+						thumbRelease="{ _presentationModel.volume = slider.value }"/>
 					
 					<s:Label
 						text="volume"

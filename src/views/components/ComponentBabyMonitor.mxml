@@ -11,123 +11,106 @@
 	
 	<fx:Script>
 		<![CDATA[
+			import flash.trace.Trace;
+			
 			import org.as3.mvcsInjector.utils.Tracer;
 			
 			import uk.co.baremedia.gnomo.models.ModelModes;
+			import uk.co.baremedia.gnomo.utils.DecreaseIncreaseRate;
 			import uk.co.baremedia.gnomo.utils.RateVO;
 			import uk.co.baremedia.gnomo.utils.Resizer;
+			
+			public static const MONITOR_WIDTH:Number 	= 155;
+			public static const MONITOR_HEIGHT:Number 	= 107;
+			public static const COMMON_PADDING:Number 	= 30;
+			public static const TOP_TEXT_WIDTH:Number 	= 289;
+			public static const TOP_TEXT_HEIGHT:Number 	= 30;
+			public static const CONNECTED_WIDTH:Number 	= 39;
+			public static const CONNECTED_HEIGHT:Number = 41;
 			
 			[Bindable] public var model					:ModelModes;
 			[Bindable] public var activityMonitorWidth	:Number;
 			[Bindable] public var activityMonitorHeight	:Number;
+			[Bindable] public var commonPadding 		:Number = 15;
 			
 			[Bindable] protected var _visorWidth 		:Number;
 			[Bindable] protected var _visorHeight 		:Number;
-			[Bindable] protected var _topElementsY 		:Number = 30;
+			
 			
 			protected var _scaleRate					:RateVO;
 			
-			public function set scalingRate(value:RateVO):void
+			public function set elementsPercentage(value:Number):void
 			{
-				if(!_scaleRate || _scaleRate.rate != value.rate)
+				var tmpWidth:Number  		= TOP_TEXT_WIDTH	+ (TOP_TEXT_WIDTH  * value); 
+				var tmpHeight:Number 		= TOP_TEXT_HEIGHT  + (TOP_TEXT_HEIGHT * value);  
+				var tmpCommonPadding:Number = COMMON_PADDING + (COMMON_PADDING * (value*2) );
+				
+				if( isValidNumber(tmpWidth) && isValidNumber(tmpHeight) )
 				{
-					_scaleRate = value;	
-					
-					// - Resizer.scaleIt(connectedStatus.width, value): "+Resizer.scaleIt(connectedStatus.width, value)+
-					Tracer.log(this, "scalingRate value.rate: "+value.rate+"  value.increaseNotDecrease: "+value.increaseNotDecrease);
-					Tracer.log(this, "connectedStatus.width: "+connectedStatus.width+"  scaled: "+Resizer.scaleIt(connectedStatus.width, value) );
-					/* if(!isNaN(connStatRec.width) && connStatRec.width != 0 && connStatRec.width != Infinity &&
-						!isNaN(connStatRec.height) && connStatRec.height != 0 && connStatRec.height != Infinity)
-					{
-						
-					
-					} */
-					/* var connStatWidth	:Number = Resizer.scaleIt(connectedStatus.origWidth, value);
-					var connStatHeight	:Number = Resizer.scaleIt(connectedStatus.origHeight, value);
-					
-					var topTextWidth	:Number = Resizer.scaleIt(connectedStatus.origWidth, value);
-					var topTextHeight	:Number = Resizer.scaleIt(connectedStatus.origHeight, value);
-					
-					connectedStatus.width  	= connStatWidth;
-					connectedStatus.height 	= connStatHeight;
-					
-					topTextNote.height 		= topTextHeight;
-					topTextNote.width		= topTextWidth; */ 
+					topTextNote.width = tmpWidth;
+					topTextNote.height= tmpHeight;
+				}
+				
+				connectedStatusPercentage = value;
+			}
+			
+			public function set connectedStatusPercentage(value:Number):void
+			{
+				var tmpWidth:Number  = CONNECTED_WIDTH	+ (CONNECTED_WIDTH  * value); 
+				var tmpHeight:Number = CONNECTED_HEIGHT + (CONNECTED_HEIGHT * value); 
+				
+				if( isValidNumber(tmpWidth) && isValidNumber(tmpHeight) )
+				{
+					connectedStatus.width 	= tmpWidth;
+					connectedStatus.height	= tmpHeight;
 				}
 			}
 			
-			override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
+			public function set monitorPercentage(value:Number):void
 			{
-				super.updateDisplayList(unscaledWidth, unscaledHeight);
-				invalidateDisplayList();
-				updateElementsMeasure();
-				//Tracer.log(this, "_visorWidth: "+_visorWidth+" _visorHeight: "+_visorHeight);
-			}
-			
-			protected function updateElementsMeasure():void
-			{
-				var connStatRec	:Rectangle  = Resizer.resizeMaintainingAspectRatio(connectedStatus.origWidth, connectedStatus.height, 0, activityMonitorWidth / 10); 
-				Tracer.log(this, "connStatRec.width: "+connStatRec.width+" connStatRec.height: "+connStatRec.height);
+				var tmpWidth:Number  		= MONITOR_WIDTH   + (MONITOR_WIDTH  * value); 
+				var tmpHeight:Number 		= MONITOR_HEIGHT  + (MONITOR_HEIGHT * value); 
 				
-				if(!isNaN(connStatRec.width) && connStatRec.width != 0 && connStatRec.width != Infinity &&
-					!isNaN(connStatRec.height) && connStatRec.height != 0 && connStatRec.height != Infinity)
+				if( isValidNumber(tmpWidth) && isValidNumber(tmpHeight) )
 				{
-					//connectedStatus.setActualSize(connStatRec.width, connStatRec.height);
-					connectedStatus.width 		= connStatRec.width; 
-					connectedStatus.height 		= connStatRec.height;
+					Tracer.log(this, "monitorPercentage - tmpWidth: "+tmpWidth+" tmpHeight: "+tmpHeight);
+					monitor.width 	= tmpWidth;
+					monitor.height	= tmpHeight;
 				}
-					
-				 
-				//var topTextRec	:Rectangle = Resizer.resizeMaintainingAspectRatio(connectedStatus.origWidth, connectedStatus.height, 0, activityMonitorWidth / 1.5);
-				
-			/* 	connectedStatus.width 		= 300; 
-				connectedStatus.height 		= 40; */
 			}
 			
+			protected function isValidNumber(number:Number):Boolean
+			{
+				return (!isNaN(number) && number != 0 && number != Infinity);
+			}
 		]]>
 	</fx:Script>
+	
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
-	
-	<s:states>
-		<s:State name="noBabyUnit"/>
-		<s:State name="sleeping"/>
-		<s:State name="activity"/>
-	</s:states>
 	
 	<local:Visor
 		id="visor"
 		width="100%"
 		height="100%" />
 	
+	<local:TopTexNote
+		id="topTextNote"
+		y="{ commonPadding }"
+		x="{ commonPadding }"
+		textTopNoteValue="{ model.textTopNote }"/>
 	
-	
-	<s:HGroup
-		id="topElements"
-		x="{ width / 2 - topElements.width / 2 }"
-		y="{ _topElementsY }"
-		horizontalAlign="left"
-		verticalAlign="top"
-		width="90%">
-		
-		<local:TopTexNote
-			id="topTextNote"
-			textTopNoteValue="{ model.textTopNote }"/>
-		
-		<!--<s:Spacer
-			width="100%"/>-->
-		
-		<local:ConnectedStatus
-			id="connectedStatus"
-			connected="{ model.localNetworkConnected }"/>
-		
-	</s:HGroup>
+	<local:ConnectedStatus
+		id="connectedStatus"
+		y="{ commonPadding }"
+		x="{  width  - (connectedStatus.width + commonPadding) }"
+		connectedStatus="{ model.localNetworkConnected }"/>
 	
 	<local:MovieClipBaby
 		id="monitor"
 		x="{ width / 2 - monitor.width / 2 }"
-		y="{ ((height / 2 - monitor.height / 2) / 5) * 3 }"
+		y="{ connectedStatus.y + connectedStatus.height + commonPadding }"
 		width="{ activityMonitorWidth }"
 		height="{ activityMonitorHeight }"
 		mode="{ model.monitorMode }" />

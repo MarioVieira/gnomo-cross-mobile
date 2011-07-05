@@ -20,8 +20,8 @@
 			
 			override protected function childrenCreated():void
 			{
-				var rect:Rectangle = Resizer.scaleByAspectRatio(320, 220, 0, 345);
-				Tracer.log(this, "rect - width: "+rect.width+" height: "+rect.height);
+				/* var rect:Rectangle = Resizer.scaleByAspectRatio(320, 220, 0, 345);
+				Tracer.log(this, "rect - width: "+rect.width+" height: "+rect.height); */
 			}
 		]]>
 	</fx:Script>
