@@ -8,17 +8,12 @@
 	</s:layout>
 	
 	
-	
 	<fx:Script>
 		<![CDATA[
-			import flash.trace.Trace;
-			
 			import org.as3.mvcsInjector.utils.Tracer;
 			
 			import uk.co.baremedia.gnomo.models.ModelModes;
-			import uk.co.baremedia.gnomo.utils.DecreaseIncreaseRate;
 			import uk.co.baremedia.gnomo.utils.RateVO;
-			import uk.co.baremedia.gnomo.utils.Resizer;
 			
 			public static const MONITOR_WIDTH:Number 	= 155;
 			public static const MONITOR_HEIGHT:Number 	= 107;
@@ -28,16 +23,24 @@
 			public static const CONNECTED_WIDTH:Number 	= 39;
 			public static const CONNECTED_HEIGHT:Number = 41;
 			
-			[Bindable] public var model					:ModelModes;
+			
 			[Bindable] public var activityMonitorWidth	:Number;
 			[Bindable] public var activityMonitorHeight	:Number;
 			[Bindable] public var commonPadding 		:Number = 15;
+			[Bindable] public var fontSize	 			:int 	= 18;
 			
+			[Bindable] protected var _model				:ModelModes;
 			[Bindable] protected var _visorWidth 		:Number;
 			[Bindable] protected var _visorHeight 		:Number;
 			
 			
 			protected var _scaleRate					:RateVO;
+			
+			public function set model(value:ModelModes):void
+			{
+				_model = value;
+				_model.add(onModelTest);
+			}
 			
 			public function set elementsPercentage(value:Number):void
 			{
@@ -47,8 +50,8 @@
 				
 				if( isValidNumber(tmpWidth) && isValidNumber(tmpHeight) )
 				{
-					topTextNote.width = tmpWidth;
-					topTextNote.height= tmpHeight;
+					/* topTextNote.width = tmpWidth;
+					topTextNote.height= tmpHeight; */
 				}
 				
 				connectedStatusPercentage = value;
@@ -73,7 +76,7 @@
 				
 				if( isValidNumber(tmpWidth) && isValidNumber(tmpHeight) )
 				{
-					Tracer.log(this, "monitorPercentage - tmpWidth: "+tmpWidth+" tmpHeight: "+tmpHeight);
+					//Tracer.log(this, "monitorPercentage - tmpWidth: "+tmpWidth+" tmpHeight: "+tmpHeight);
 					monitor.width 	= tmpWidth;
 					monitor.height	= tmpHeight;
 				}
@@ -83,6 +86,12 @@
 			{
 				return (!isNaN(number) && number != 0 && number != Infinity);
 			}
+			
+			private function onModelTest(changeType:String):void
+			{
+				Tracer.log(this, "onModelTest - _model.monitorMode: "+_model.monitorMode);
+			}
+			
 		]]>
 	</fx:Script>
 	
@@ -90,29 +99,40 @@
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
 	
-	<local:Visor
-		id="visor"
+	<local:VisorMC
+		y="{ commonPadding / 3 }"
+		x="{ commonPadding / 4 }"
 		width="100%"
-		height="100%" />
+		height="100%"/>
 	
-	<local:TopTexNote
-		id="topTextNote"
-		y="{ commonPadding }"
-		x="{ commonPadding }"
-		textTopNoteValue="{ model.textTopNote }"/>
+	<s:HGroup
+		paddingRight="{ commonPadding }"
+		paddingLeft="{ commonPadding }"
+		paddingTop="{ commonPadding }"
+		height="90%"
+		width="100%">
+		
+		<s:Label
+			styleName="euroStileBold"
+			fontSize="{ fontSize }"
+			text="{ _model.textTopNote }"/>
+		
+		<s:Spacer
+			width="100%"/>
+		
+		<local:ConnectedMC
+			id="connectedStatus"
+			connectedStatus="{ _model.localNetworkConnected }"/>
 	
-	<local:ConnectedStatus
-		id="connectedStatus"
-		y="{ commonPadding }"
-		x="{  width  - (connectedStatus.width + commonPadding) }"
-		connectedStatus="{ model.localNetworkConnected }"/>
+	</s:HGroup>
+	
 	
 	<local:MovieClipBaby
 		id="monitor"
-		x="{ width / 2 - monitor.width / 2 }"
-		y="{ connectedStatus.y + connectedStatus.height + commonPadding }"
+		x="{ width / 2 - activityMonitorWidth / 2 }"
+		y="{ (height / 2 - activityMonitorHeight / 2) + commonPadding / 3 }"
 		width="{ activityMonitorWidth }"
 		height="{ activityMonitorHeight }"
-		mode="{ model.monitorMode }" />
+		mode="{ _model.monitorMode }" />
 	
 </s:Group>

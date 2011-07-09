@@ -4,12 +4,15 @@
 		xmlns:local="*"
 		xmlns:p2p="com.projectcocoon.p2p.*" 
 		xmlns:components="views.components.*"
+		xmlns:elements="views.elements.*"
 		
 		title="{ UtilsResources.getKey(EnumsLanguage.BABY_CALL) }" 
 		creationComplete=" updateMeasures() ">
 	
 	<fx:Script>
 		<![CDATA[ 
+			import assets.Images;
+			
 			import flash.sensors.Accelerometer;
 			
 			import mx.core.FlexGlobals;
@@ -24,21 +27,14 @@
 			import uk.co.baremedia.gnomo.utils.DecreaseIncreaseRate;
 			import uk.co.baremedia.gnomo.utils.RateVO;
 			import uk.co.baremedia.gnomo.utils.Resizer;
-			import uk.co.baremedia.gnomo.utils.UtilsResources;
+			import uk.co.baremedia.gnomo.utils.UtilsResources;  
 			
 			public static const MONITOR_WIDTH:Number 	= 155;
 			public static const MONITOR_HEIGHT:Number 	= 107;
 			
 			[Bindable] protected var _presentationModel		:PresentationUnits;
-			[Bindable] protected var _monitorScalingRate	:RateVO;
-			[Bindable] private var _percentTopElements		:Number;
-			[Bindable] private var 	_sliderWidth			:Number;
-			[Bindable] protected var _monitorWidth			:Number;
-			[Bindable] protected var _monitorHeight			:Number;
-			[Bindable] private var _commonPadding			:int;
 			
 			private var _currentAlert:SkinnablePopUpContainer;
-		
 			
 			override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
 			{
@@ -46,7 +42,7 @@
 				invalidateDisplayList();
 				updateMeasures();
 			}
-			
+			 
 			public function set presentationModel(value:PresentationUnits):void
 			{
 				_presentationModel = value;
@@ -113,39 +109,37 @@
 			
 			private function setMonitorMeasures():void
 			{
-				var heightNotWidth:Boolean 	= group.height > group.width;
-				
-				//_monitorScalingRate = (heightNotWidth) ? DecreaseIncreaseRate.findRates(origWidth, group.width / 1.5) : DecreaseIncreaseRate.findRates(origHeight, group.height / 1.7);
-				//DecreaseIncreaseRate.findPercentage(origWidth, group.width / 1.5) : DecreaseIncreaseRate.findPercentage(origHeight, group.height / 1.7);
-				var rect:Rectangle  = (heightNotWidth) ? Resizer.scaleByAspectRatio(MONITOR_WIDTH, MONITOR_HEIGHT, 0, group.width / 1.5) : Resizer.scaleByAspectRatio(MONITOR_WIDTH, MONITOR_HEIGHT, group.height / 1.7, 0); 
-				
-				_monitorWidth 	= rect.width;
-				_monitorHeight 	= rect.height;
+				var rect:Rectangle  = (monitor.height > monitor.width) ? Resizer.scaleByAspectRatio(MONITOR_WIDTH, MONITOR_HEIGHT, 0, monitor.width / 1.5) : Resizer.scaleByAspectRatio(MONITOR_WIDTH, MONITOR_HEIGHT, monitor.height / 1.7, 0); 
+				monitor.activityMonitorWidth  = rect.width;
+				monitor.activityMonitorHeight = rect.height;
 			}
 			
 			protected function setSliderWidth():void
 			{
+				Tracer.log(this, "setSliderWidth - width: "+width);
 				if(width <= 320) 		
 				{
-					_commonPadding			= 15;
-					_sliderWidth 			= width * .90;
-					_percentTopElements 	= 0;
+					monitor.commonPadding		= 15;
+					monitor.fontSize			= 22;
+					monitor.elementsPercentage  = 0;
+					slider.width 				= width * .90;
 				}
-				else if(width >= 400 && width < 680)
+				else if(width >= 400 && width <= 768)
 				{
-					_commonPadding			= 25;
-					_sliderWidth 			= width * .70;
-					_percentTopElements 	= .40;
+					monitor.fontSize			= 32;
+					monitor.commonPadding		= 25;
+					monitor.elementsPercentage	= .40;
+					slider.width 				= width * .60;
 				}
 				else
 				{
-					_commonPadding			= 35;
-					_sliderWidth 			= width * .60;
-					_percentTopElements 	= .70;
-					
+					monitor.fontSize			= 45;
+					monitor.commonPadding		= 35;
+					monitor.elementsPercentage 	= .70;
+					slider.width 				= width * .50;
 				}
 			}
-				
+			
 		]]>
 	</fx:Script>
 	
@@ -156,96 +150,62 @@
 			height="100%"/>	
 	</fx:Declarations>
 	
-	<s:Group
+	<s:Rect
 		width="100%"
 		height="100%">
-		
-		<local:Background
-			width="100%"
-			height="100%"/>
-		
-		<s:Scroller width="100%" height="100%" verticalScrollPolicy="on">
-			
-			<s:Group width="100%" height="100%">
-				
-				<s:layout>
-					<s:MultiDPIVerticalLayout 
-						sourceDPI="160"
-						paddingTop="10" paddingBottom="10" paddingLeft="10" paddingRight="10"
-						horizontalAlign="center"/>
-				</s:layout>
-				
-				<s:Group
-					id="group"
-					width="100%"
-					height="100%">
-					
-					<s:layout>
-						<s:HorizontalLayout
-							horizontalAlign="center"/>
-					</s:layout>
-					
-					<components:ComponentBabyMonitor
-						id="monitor"
-						activityMonitorWidth="{ _monitorWidth }"
-						activityMonitorHeight="{ _monitorHeight }"
-						elementsPercentage="{ _percentTopElements }"
-						
-						width="100%"
-						height="100%"/>
-				
-				</s:Group>
-				
-				<s:VGroup
-					horizontalAlign="left">
-					
-					<s:HSlider
-						id="slider"
-						width="{ _sliderWidth }"
-						skinClass="views.skins.SkinkHSlider"
-						thumbRelease="{ _presentationModel.volume = slider.value }"/>
-					
-					<s:Label
-						text="volume"
-						paddingLeft="47"
-						styleName="greenColor"/>
-					
-				</s:VGroup>
-				
-				
-				
-				<s:Button 
-					label="{ UtilsResources.getKey(EnumsLanguage.LISTEN_NOW) }" 
-					click=" _presentationModel.listenOrStopListening(true); "
-					enabled="{ _presentationModel.canListen }"
-					styleName="greenColor"
-					width="100%"/>
-				
-				<!--<s:Button 
-					label="{ UtilsResources.getKey(EnumsLanguage.STOP_LISTENING) }" 
-					click=" _presentationModel.listenOrStopListening(false)"
-					enabled="{ _presentationModel.canStopListening }"
-					styleName="stopButton"
-					width="100%"/>-->
-				
-				<s:Button 
-					label="{ UtilsResources.getKey(EnumsLanguage.SET_AS_BABY_UNIT) }" 
-					click=" _presentationModel.setAsBabyUnit(); " 
-					enabled="{ !_presentationModel.broadcasting }"
-					styleName="greenColor"
-					width="100%"/>
-				
-				<!--<s:Button 
-				label="{ _presentationModel.textQuitButton }" 
-				click=" _presentationModel.disconnectOrConnect() "
-				enabled="{ (_presentationModel.receiving || _presentationModel.broadcasting) }"
-				width="100%"/>-->
-				
-			</s:Group>
-			
-		</s:Scroller>
-		
-	</s:Group>
+		<s:fill>
+			<s:SolidColor
+				color="#E2E2E2"/>
+		</s:fill>
+	</s:Rect>
 	
+	
+	<s:HGroup
+		horizontalAlign="center"
+		width="100%" 
+		height="100%">
+		
+		<s:VGroup
+			horizontalAlign="center"
+			width="98%"
+			height="98%">
+			
+			<components:ComponentBabyMonitor
+				id="monitor"
+				
+				width="100%"
+				height="100%"/>
+			
+			<s:VGroup
+				horizontalAlign="left">
+				<s:HSlider
+					id="slider"
+					
+					skinClass="views.skins.SkinkHSlider"
+					thumbRelease="{ _presentationModel.sliderValue = slider.value }"
+					value="{ _presentationModel.sliderLevel }"/>
+				<s:Label
+					text="{ _presentationModel.textSlider }"
+					paddingLeft="47"
+					styleName="euroStileBold"/>
+			</s:VGroup>
+			
+			<s:Button 
+				label="{ _presentationModel.textAudioButtonControl }" 
+				click=" _presentationModel.listenOrStopListening(); "
+				enabled="{ _presentationModel.receiving }"
+				styleName="buttonEuroStile"
+				width="100%"/>
+			
+			<s:Button 
+				label="{ UtilsResources.getKey(EnumsLanguage.SET_AS_BABY_UNIT) }" 
+				click=" _presentationModel.setAsBabyUnit(); " 
+				enabled="{ !_presentationModel.broadcasting }"
+				styleName="buttonEuroStile"
+				width="100%"/>
+			
+		</s:VGroup>
+		
+	</s:HGroup>
 	
 </s:View>

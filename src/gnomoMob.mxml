@@ -22,7 +22,6 @@
 			
 			import spark.components.SkinnablePopUpContainer;
 			
-			
 			import uk.co.baremedia.gnomo.core.CoreAppFrameWorkDescriptors;
 			import uk.co.baremedia.gnomo.descriptors.DescriptorLanguage;
 			import uk.co.baremedia.gnomo.enums.EnumsLanguage;
@@ -141,6 +140,9 @@
 	
 	<fx:Style
 		source="/styles.css"/>
+	
+	<fx:Style
+		source="/assets/fonts.css"/>
 	
 	<s:ViewNavigator id="navigator" label="{ UtilsResources.getKey(EnumsLanguage.BABY_CALL) }" firstView="{ ComponentUnits }" width="100%" height="100%">
 		

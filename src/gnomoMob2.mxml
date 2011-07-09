@@ -137,7 +137,10 @@
 	</fx:Declarations>
 	
 	<fx:Style
-		source="/styles.css"/>  
+		source="/styles.css"/>
+	
+	<fx:Style
+		source="/assets/fonts.css"/> 
 		
 	
 	<s:ViewNavigator id="navigator" label="{ UtilsResources.getKey(EnumsLanguage.BABY_CALL) }" firstView="{ ComponentUnits }" width="100%" height="100%">

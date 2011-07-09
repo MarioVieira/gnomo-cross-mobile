@@ -5,6 +5,17 @@
 	color: #6F7A73;
 }
 
+.buttonEuroStile {
+	fontFamily: Eurostile;
+	color: #6F7A73;
+	fontWeight: normal;
+}
+
+s|Button
+{
+	cornerRadius: 20;	
+}
+
 
 @media (os-platform: "Android")
 {
