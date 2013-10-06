@@ -7,7 +7,6 @@ package uk.co.baremedia.gnomo.mobile.core
 	import views.components.ComponentLogs;
 	import views.components.ComponentInfo;
 	import views.components.ComponentUnits;
-	import views.mediators.MediatorAlerts;
 	import views.mediators.MediatorScreenLogs;
 	import views.mediators.MediatorScreenInfo;
 	import views.mediators.MediatorUnits;

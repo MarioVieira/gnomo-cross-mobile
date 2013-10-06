@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<s:ListFormItemRenderer 
+<s:ListFormItemRenderer
 	xmlns:fx="http://ns.adobe.com/mxml/2009" 
 	xmlns:mx="library://ns.adobe.com/flex/mx" 
 	xmlns:s="library://ns.adobe.com/flex/spark"
-	
+	xmlns:controls="controls.*"
 	styleName="listFormItemRenderer">
 	<fx:Script>
 		<![CDATA[
 			import assets.Images;
+			
+			import controls.ListForm;
+			
+			import spark.components.View;
 			
 			import uk.co.baremedia.gnomo.enums.EnumsLanguage;
 			import uk.co.baremedia.gnomo.utils.UtilsDate;
@@ -87,7 +91,7 @@
 				source="{ Images.removeListIcon }"
 				visible="{ UtilsStaticUIInfo.logsShowEditButton }"
 				includeInLayout="{ UtilsStaticUIInfo.logsShowEditButton }"
-				click="ComponentLogs(parentDocument).presentationModel.removeLog(data as VOLog)"
+				click="ComponentLogs(  Object(owner).parentDocument ).supervisingPresenter.removeLog(data as VOLog)"
 				
 				showEffect="Fade"
 				hideEffect="Fade"/>

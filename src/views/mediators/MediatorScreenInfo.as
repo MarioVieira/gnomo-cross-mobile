@@ -4,6 +4,7 @@ package views.mediators
 	import org.robotlegs.core.IInjector;
 	import org.robotlegs.mvcs.MediatorInit;
 	
+	import uk.co.baremedia.gnomo.presentation.IComponentInfo;
 	import uk.co.baremedia.gnomo.presentation.PresentationScreenInfo;
 	
 	import views.components.ComponentInfo;
@@ -23,9 +24,7 @@ package views.mediators
 		
 		override public function onRegister():void
 		{ 
-			Tracer.log(this, "onRegister");
-			
-			_view.presentationModel = new PresentationScreenInfo();
+			_view.presentationModel = new PresentationScreenInfo(_view as IComponentInfo);
 		}
 		
 		override public function onRemove():void

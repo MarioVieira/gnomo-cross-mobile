@@ -27,10 +27,13 @@
 			import uk.co.baremedia.gnomo.enums.EnumsLanguage;
 			import uk.co.baremedia.gnomo.enums.EnumsScreens;
 			import uk.co.baremedia.gnomo.utils.UtilsResources;
+			import uk.co.baremedia.gnomo.utils.UtilsStaticUIInfo;
 			
 			import views.components.ComponentInfo;
 			import views.components.ComponentLogs;
 			import views.components.ComponentUnits;
+			import views.components.ListView;
+			
 			
 			protected var _mobNavigator		:MobileNavigator;
 			protected var _context			:ApplicationContext;  
@@ -44,7 +47,9 @@
 			protected function creationComplete(e:Event):void
 			{
 				//navigator.addElement( new ComponentUnits() );
-				Tracer.log(this, "creationComplete");
+				Tracer.log(this, "creationComplete - "+UtilsStaticUIInfo.actioBarHeight);
+				UtilsStaticUIInfo.actioBarHeight = this.navigator.actionBar.height;
+				UtilsStaticUIInfo.actioBarViewHeight = this.navigator.activeView.height;
 			}
 			
 			protected function testIt():void
@@ -52,14 +57,15 @@
 				Tracer.log(this, "testIt");
 			}
 			
-			protected function setupViewNavigator():void
+			 protected function setupViewNavigator():void
 			{
 				_mobNavigator = new MobileNavigator(this, tabbedNavigator, backButton);
 			}
 			
-			protected function getFrameWorkDescriptor():DescriptorAppFrameWork
+ 			protected function getFrameWorkDescriptor():DescriptorAppFrameWork
 			{
 				var appDescriptor:DescriptorAppFrameWork 	= CoreAppFrameWorkDescriptors.getFrameWorkDescriptors( CoreAppScreens.getAppScreens(EnumsScreens.SCREEN_MODES) );
+				
 				appDescriptor.languageDescriptorClass 		= DescriptorLanguage;
 				appDescriptor.languageId			  		= 1;
 				
@@ -80,68 +86,13 @@
 			label="Back" 
 			click="_mobNavigator.backButton_clickHandler(event)" />
 		
-		<!--
-		<s:SkinnablePopUpContainer id="alertAgreement" backgroundAlpha="0.5" backgroundColor="0x000000">
-		<s:Panel title="{ UtilsResources.getKey(EnumsLanguage.AGREEMENT) }" horizontalCenter="0" verticalCenter="0" width="90%">
-		<s:VGroup width="100%" bottom="0"
-		horizontalAlign="center"
-		verticalAlign="middle">
-		
-		<s:TextArea
-		borderVisible="false" 
-		contentBackgroundAlpha="0" 
-		width="100%" 
-		editable="false" 
-		selectable="false"
-		text="{ UtilsResources.getKey(EnumsLanguage.DISCLAIMER_ALERT) }"/>
-		
-		<s:Button 
-		label="{ UtilsResources.getKey(EnumsLanguage.AGREE) }" 
-		click="closeAlert()" 
-		width="50%" 
-		styleName="dialogDefaultButton"/>
-		
-		</s:VGroup>
-		</s:Panel>
-		</s:SkinnablePopUpContainer>
-		
-		<s:SkinnablePopUpContainer id="alertImportant" backgroundAlpha="0.5" backgroundColor="0x000000">
-		
-		<s:Panel 
-		title="{ UtilsResources.getKey(EnumsLanguage.IMPORTANT) }" 
-		horizontalCenter="0" verticalCenter="0" width="90%">
-		
-		<s:VGroup width="100%" bottom="0"
-		horizontalAlign="center"
-		verticalAlign="middle">
-		
-		<s:TextArea
-		borderVisible="false" 
-		contentBackgroundAlpha="0" 
-		width="100%" 
-		editable="false" 
-		selectable="false"
-		textAlign="center"
-		text="{ UtilsResources.getKey(EnumsLanguage.INSTRUCTIONS_TEXT) }"/>
-		
-		<s:Button label="{ UtilsResources.getKey(EnumsLanguage.OK) }" 
-		click="closeAlert()" 
-		width="50%" 
-		styleName="dialogDefaultButton"/>
-		
-		</s:VGroup>
-		</s:Panel>
-		</s:SkinnablePopUpContainer>
-		-->
-		
 	</fx:Declarations>
 	
 	<fx:Style
 		source="/styles.css"/>
 	
 	<fx:Style
-		source="/assets/fonts.css"/> 
-		
+		source="/assets/fonts.css"/>
 	
 	<s:ViewNavigator id="navigator" label="{ UtilsResources.getKey(EnumsLanguage.BABY_CALL) }" firstView="{ ComponentUnits }" width="100%" height="100%">
 		
@@ -153,18 +104,9 @@
 		
 	</s:ViewNavigator>
 	
-	<s:ViewNavigator label="{ UtilsResources.getKey(EnumsLanguage.LOGS) }" firstView="{ ComponentLogs }" width="100%" height="100%">
-		<s:icon>
-			<s:MultiDPIBitmapSource source160dpi="{ Images.logBaby_32x24 }"
-									source240dpi="{ Images.logBaby_48x36 }"
-									source320dpi="{ Images.logBaby_56x42 }" />
-		</s:icon>
-	</s:ViewNavigator>
-	
 	<s:ViewNavigator label="{ UtilsResources.getKey(EnumsLanguage.INFO) }" firstView="{ ComponentInfo }" width="100%" height="100%">
 		
 		<s:icon>
-			
 			<s:MultiDPIBitmapSource  source160dpi="{ Images.infoBaby_32x24 }"
 									 source240dpi="{ Images.infoBaby_48x36 }"
 									 source320dpi="{ Images.infoBaby_56x42 }" />
@@ -172,5 +114,12 @@
 		
 	</s:ViewNavigator>
 	
+	<s:ViewNavigator label="{ UtilsResources.getKey(EnumsLanguage.LOGS) }" firstView="{ ComponentLogs }" width="100%" height="100%">
+		<s:icon>
+			<s:MultiDPIBitmapSource source160dpi="{ Images.logBaby_32x24 }"
+									source240dpi="{ Images.logBaby_48x36 }"
+									source320dpi="{ Images.logBaby_56x42 }" />
+		</s:icon>
+	</s:ViewNavigator>
 	
 </s:TabbedViewNavigatorApplication>

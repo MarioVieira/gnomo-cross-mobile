@@ -6,6 +6,7 @@ package views.mediators
 	
 	import uk.co.baremedia.gnomo.controls.ControlPersistedData;
 	import uk.co.baremedia.gnomo.controls.ControlUnits;
+	import uk.co.baremedia.gnomo.interfaces.IConnected;
 	import uk.co.baremedia.gnomo.models.ModelAudio;
 	import uk.co.baremedia.gnomo.models.ModelModes;
 	import uk.co.baremedia.gnomo.models.ModelNetworkManager;
@@ -34,6 +35,7 @@ package views.mediators
 															_injector.getInstance(ModelNetworkManager),
 															_injector.getInstance(ModelModes),
 															_injector.getInstance(ModelAudio),
+															_injector.getInstance(IConnected),
 															_injector.getInstance(SignalNotifier));
 		}
 		

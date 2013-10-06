@@ -5,7 +5,7 @@
 @font-face {
 	src: url("Eurostile.ttf");
 	fontFamily: "Eurostile";
-	embedAsCFF: true;
+	embedAsCFF: false;
 }
 
 .euroStileLite {

@@ -27,6 +27,7 @@
 			import uk.co.baremedia.gnomo.utils.DecreaseIncreaseRate;
 			import uk.co.baremedia.gnomo.utils.RateVO;
 			import uk.co.baremedia.gnomo.utils.Resizer;
+			import uk.co.baremedia.gnomo.utils.UtilsDeviceInfo;
 			import uk.co.baremedia.gnomo.utils.UtilsResources;  
 			
 			public static const MONITOR_WIDTH:Number 	= 155;
@@ -50,6 +51,8 @@
 				alerts.closeAlert.add(onCloseAlert);
 				_presentationModel.checkHasToShowAlerts();
 				monitor.model = _presentationModel.modelMonitor;
+				
+				updateSensibilitySlider();
 			}
 			
 			public function get presentationModel():PresentationUnits
@@ -59,7 +62,7 @@
 			
 			private function onOpenAlert(alertPopupId:String):void
 			{
-				//Tracer.log(this, "onOpenAlert - alertPopupId: "+alertPopupId);
+				Tracer.log(this, "onOpenAlert - alertPopupId: "+alertPopupId);
 				if(alertPopupId != null)
 					openAlert(this.alerts[alertPopupId]);
 				else if(_currentAlert && _currentAlert.id != PresentationUnits.ALERT_IMPORTANT)
@@ -126,6 +129,7 @@
 				}
 				else if(width >= 400 && width <= 768)
 				{
+					monitor.commonPadding		= 5;
 					monitor.fontSize			= 32;
 					monitor.commonPadding		= 25;
 					monitor.elementsPercentage	= .40;
@@ -138,6 +142,12 @@
 					monitor.elementsPercentage 	= .70;
 					slider.width 				= width * .50;
 				}
+			}
+			
+			private function updateSensibilitySlider():void
+			{
+				if(slider && _presentationModel)
+					slider.value = _presentationModel.sliderLevel;
 			}
 			
 		]]>
@@ -184,10 +194,12 @@
 					skinClass="views.skins.SkinkHSlider"
 					thumbRelease="{ _presentationModel.sliderValue = slider.value }"
 					value="{ _presentationModel.sliderLevel }"/>
+				
 				<s:Label
 					text="{ _presentationModel.textSlider }"
 					paddingLeft="47"
 					styleName="euroStileBold"/>
+				
 			</s:VGroup>
 			
 			<s:Button 
@@ -203,6 +215,10 @@
 				enabled="{ !_presentationModel.broadcasting }"
 				styleName="buttonEuroStile"
 				width="100%"/>
+			
+			
+			<!-- Not to allow setting as BabyUnit when not connected
+				&& _presentationModel.modelMonitor.localNetworkConnected }" -->
 			
 		</s:VGroup>
 		

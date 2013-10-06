@@ -6,6 +6,7 @@
 }
 
 .buttonEuroStile {
+	enableLoadingState: true;
 	fontFamily: Eurostile;
 	color: #6F7A73;
 	fontWeight: normal;
@@ -16,16 +17,44 @@ s|Button
 	cornerRadius: 20;	
 }
 
+s|ActionBar
+{
+	chromeColor: #97A697;
+	defaultButtonAppearance: beveled;
+}
+
 
 @media (os-platform: "Android")
 {
 	/* Android Gingerbread style Panel skin*/
 	/* not picked up from mobile_examples.swc because the spark theme has higher priority */
 	
+	s|TabbedViewNavigatorApplication #tabBar
+	{
+		skinClass: ClassReference("spark.skins.ios.TabbedViewNavigatorTabBarSkin");
+		chromeColor: #000000;
+	}
+	
+	s|Button
+	{
+		fontWeight:bold;
+	}
+	
+	s|ActionBar #titleDisplay
+	{
+		fontWeight: bold;
+		fontStyle: normal;
+	}
+	
+	s|ActionBar.beveled s|Group#navigationGroup s|Button
+	{
+		/* use the rounded button instead of the arrow button */
+		skinClass: ClassReference("spark.skins.mobile.BeveledActionButtonSkin");
+	}
 	
 	s|Panel
 	{
-		skinClass: ClassReference("spark.skins.mobile.PanelSkin");
+		/*skinClass: ClassReference("spark.skins.mobile.PanelSkin");*/
 		borderWeight: 6;
 		borderColor: #666666;
 		backgroundColor: #FFFFFF;

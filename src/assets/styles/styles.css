@@ -14,7 +14,7 @@
 	
 	s|Panel
 	{
-		skinClass: ClassReference("spark.skins.mobile.PanelSkin");
+		skinClass: ClassReference("views.skins.PanelSkin");
 		borderWeight: 6;
 		borderColor: #666666;
 		backgroundColor: #FFFFFF;

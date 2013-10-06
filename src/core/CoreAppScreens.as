@@ -23,7 +23,7 @@ package core
 			screens.push( new VOScreen(ComponentLogs, MediatorScreenLogs, EnumsScreens.SCREEN_LOG_DAY, EnumsViewNavigation.TYPE_SCREEN) );
 			screens.push( new VOScreen(ComponentInfo, MediatorScreenInfo, EnumsScreens.SCREEN_MODES, EnumsViewNavigation.TYPE_SCREEN) );
 			
-			return new DescriptoViews(firstScreenName, screens); 
+			return new DescriptoViews(firstScreenName, screens);
 		}
 	}
 }

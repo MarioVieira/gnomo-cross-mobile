@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
 		xmlns:s="library://ns.adobe.com/flex/spark" 
-		
+		xmlns:local="*" 
+		xmlns:controls="controls.*"
 		title="{ UtilsResources.getKey(EnumsLanguage.LOGS) }"
-		
+		backgroundAlpha="0"
 		creationComplete="onCreationComplete(event)">
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
@@ -17,7 +18,7 @@
 			import uk.co.baremedia.gnomo.utils.UtilsResources;
 			import uk.co.baremedia.gnomo.utils.UtilsStaticUIInfo;
 			
-			[Bindable] public var presentationModel:PresentationLogs;
+			[Bindable] public var supervisingPresenter:PresentationLogs;
 			
 			import mx.core.DPIClassification;
 			import mx.core.FlexGlobals;
@@ -85,27 +86,30 @@
 	<s:Scroller width="100%" height="100%">
 		<s:Group width="100%" height="100%">
 			
-			<!-- Custom List with optional title skin part -->
-			<s:ListForm 
+			<!-- Custom List with optional title skin part  -->
+			<s:ListForm
 				id="list"
 				width="100%" height="100%"
-				title="{ UtilsResources.getKey(EnumsLanguage.INSTRUCTIONS_LOG) }"
-				dataProvider="{ presentationModel.logs }"
+				title="{ (supervisingPresenter.logs &amp;&amp; supervisingPresenter.logs.length > 0) ? UtilsResources.getKey(EnumsLanguage.INSTRUCTIONS_LOG) : UtilsResources.getKey(EnumsLanguage.INSTRUCTIONS_LOG_EMPTY) }"
+				dataProvider="{ supervisingPresenter.logs }"
 				styleName="listForm"
+				
 				labelField="elapsedTransmissionSec"
+				
 				itemRenderer="views.components.itemRenderer.RendererLogs"/>
+			
 		</s:Group>
 	</s:Scroller>
 
 	<s:actionContent>
 		<s:Button 
-			label="{ presentationModel.textEditButton }" 
-			click=" presentationModel.optionClick();" />
+			label="{ supervisingPresenter.textEditButton }" 
+			click=" supervisingPresenter.optionClick();" />
 	</s:actionContent>
 	
 	<s:viewMenuItems>
-		<s:ViewMenuItem label="{ UtilsResources.getKey(EnumsLanguage.REMOVE_ALL_LOGS)}" styleName="printButton" click="presentationModel.removeAllLogs();"/>
-		<s:ViewMenuItem label="{ UtilsResources.getKey(EnumsLanguage.EDIT) }" styleName="editButton" click="presentationModel.editLogs(true)"/>
+		<s:ViewMenuItem label="{ UtilsResources.getKey(EnumsLanguage.EDIT) }" styleName="editButton" click="supervisingPresenter.editLogs(true)" enabled="{ (supervisingPresenter.logs &amp;&amp; supervisingPresenter.logs.length > 0) }"/>
+		<s:ViewMenuItem label="{ UtilsResources.getKey(EnumsLanguage.REMOVE_ALL_LOGS)}" styleName="printButton" click="supervisingPresenter.removeAllLogs();" enabled="{ (supervisingPresenter.logs &amp;&amp; supervisingPresenter.logs.length > 0) }"/>
 	</s:viewMenuItems>
 	
 </s:View>

@@ -4,6 +4,8 @@ package navigation
 	import flash.events.MouseEvent;
 	import flash.system.Capabilities;
 	
+	import mx.core.FlexGlobals;
+	import mx.core.IUIComponent;
 	import mx.core.IVisualElementContainer;
 	import mx.events.ResizeEvent;
 	
@@ -16,7 +18,9 @@ package navigation
 	import spark.events.ElementExistenceEvent;
 	import spark.events.IndexChangeEvent;
 	
-	public class MobileNavigator
+	import uk.co.baremedia.gnomo.utils.UtilsStaticUIInfo;
+	
+	public class MobileNavigator implements IViewnNavigator
 	{
 		public var currentAlert			:SkinnablePopUpContainer;
 		  
@@ -100,6 +104,11 @@ package navigation
 		public function backButton_clickHandler(event:MouseEvent):void
 		{
 			ViewNavigator(_tabbedNavigator.selectedNavigator).popView();
+		}
+		
+		public function navigateToIndex(index:int):void
+		{
+			_tabbedNavigator.selectedIndex = index;
 		}
 		
 		public function elementRemoved(event:ElementExistenceEvent):void

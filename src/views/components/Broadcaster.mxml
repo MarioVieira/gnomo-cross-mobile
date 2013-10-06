@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		xmlns:s="library://ns.adobe.com/flex/spark" xmlns:cocoon="http://com.projectcocoon.p2p" xmlns:p2p="com.projectcocoon.p2p.*"
+		
+		creationComplete="creationCompleteHandler(event)" xmlns:mx="library://ns.adobe.com/flex/mx"
+		title="AIR Chat"
+		backgroundColor="#000000">
+	
+	<!--<fx:Style
+	source="ios.css"/>-->
+	
+	<fx:Script>
+		<![CDATA[
+			import com.projectcocoon.p2p.events.MediaBroadcastEvent;
+			import com.projectcocoon.p2p.util.Tracer;
+			import com.projectcocoon.p2p.vo.MediaVO;
+			
+			import mx.core.UIComponent;
+			import mx.events.FlexEvent;
+			import mx.events.ResizeEvent;
+			
+			import uk.co.baremedia.gnomo.utils.Resizer;
+			private var _video:Video;
+			private var _testReceiveStream:NetStream;
+			private var _broadcasterVideo:Video;
+			private var _camera:Camera;
+			
+			
+			private function sendMessage_clickHandler(event:MouseEvent):void
+			{
+				//channel.sendMessageToAll( message.text );
+			}
+			
+			private function setupVideo(netStream:NetStream):void
+			{
+				Tracer.log(Broadcaster, "setupVideo - netStream: "+netStream);
+				if(!_video)
+				{
+					_video = new Video(320, 240);
+					_video.smoothing = true;
+					
+					//var uic:UIComponent = new UIComponent();
+					uic.addChild(_video);
+					addElementAt(uic, 0);
+				}
+				
+				updateAlert(null);
+				
+				if(netStream) 
+				{
+					_video.attachNetStream(netStream);
+				}
+				//else if(cam)  _video.attachCamera(cam);
+			}
+			
+			private function setupBroadcasterVideo():void
+			{
+				if(!_broadcasterVideo)
+				{
+					Tracer.log(this, "setupBroadcasterVideo()");
+					_broadcasterVideo = new Video(160, 120);
+					//_broadcasterVideo.smoothing = true;
+					
+					//var uic:UIComponent = new UIComponent();
+					usersCam.addChild(_broadcasterVideo);
+				}
+				
+				updateAlert(null);
+				_broadcasterVideo.attachCamera(_camera);
+			}
+			
+			
+			protected function channel_mediaBroadcastHandler(event:MediaBroadcastEvent):void
+			{
+				playStream(event.mediaInfo);
+			}
+			
+			private function playStream(mediaInfo:MediaVO):void
+			{
+				stage.addEventListener(ResizeEvent.RESIZE, updateAlert);
+				
+				Tracer.log(Broadcaster, "playStream - mediaInfo.mediaType: "+mediaInfo.mediaType);
+				_testReceiveStream = new NetStream(channel.groupNetConnection(), mediaInfo.publisherGroupspecWithAuthorization);// mediaInfo.publisherGroupspecWithAuthorization);
+				_testReceiveStream.addEventListener(NetStatusEvent.NET_STATUS, netStatusHandler);
+				
+				_testReceiveStream.play(mediaInfo.publisherStream);
+				
+				setupVideo( _testReceiveStream );
+			}
+			
+			private function netStatusHandler(event:NetStatusEvent):void
+			{
+				Tracer.log(Broadcaster, "NetStream netStatusHandler - event.info.code: "+event.info.code);
+			}
+			
+			private function broadcast():void
+			{
+				var mic:Microphone;
+				
+				if(Microphone.isSupported)
+				{
+					_camera = Camera.getCamera();
+					_camera.setQuality(268440, 100);
+					
+					mic = Microphone.getMicrophone();
+					mic.rate = 8;
+					mic.setLoopBack(false);
+					
+					//mic.setUseEchoSuppression(true);
+				}
+				else 
+				{
+					Tracer.log(Broadcaster, "MIC NOT SUPPORTED"); 
+				}	
+				
+				mic.rate = 8;
+				
+				channel.microphone = mic;
+				channel.camera     = _camera;
+				channel.startBrodcast();
+				
+				setupBroadcasterVideo();
+			}
+			
+			private function creationCompleteHandler(event:FlexEvent):void
+			{
+				channel.connect();
+				updateAlert(null);
+			}
+			
+			protected function updateAlert(event:Event):void
+			{
+				if(_video)
+				{
+					var rect:Rectangle  = (height > width) ? Resizer.scaleByAspectRatio(320, 240, 0, width) : Resizer.scaleByAspectRatio(320, 240, height); 
+					
+					_video.width = rect.width;
+					_video.height = rect.height;
+					_video.x = 0;
+					_video.y = 0;
+					_video.smoothing = true;
+					
+					uic.y = height / 2 	- rect.height / 2;
+					uic.x = width / 2 	- rect.width / 2; 
+					
+					Tracer.log(this, "updateAlert - height: "+height+" rect.height: "+rect.height);
+				}
+				
+				usersCam.y = 5;
+				usersCam.x = 5;
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+		
+		<p2p:LocalNetworkDiscovery
+			id="channel"
+			clientName="remote" 
+			loopback="false"
+			mediaBroadcast="channel_mediaBroadcastHandler(event)"/>
+		
+	</fx:Declarations>
+	
+	<s:navigationContent>
+		<s:Button label="broadcast" styleName="backButton" click="broadcast()"/>
+	</s:navigationContent>
+	
+	<mx:UIComponent
+		id="uic"/>
+	
+	<mx:UIComponent
+		id="usersCam"/>
+	
+	
+</s:View>

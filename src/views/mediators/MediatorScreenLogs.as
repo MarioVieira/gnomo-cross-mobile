@@ -24,12 +24,14 @@ package views.mediators
 		
 		override public function onRegister():void
 		{ 
-			_view.presentationModel = new PresentationLogs( _injector.getInstance(ControlLogs),  _injector.getInstance(ModelSharedObject), _injector.getInstance(ControlPersistedData));
+			_view.supervisingPresenter = new PresentationLogs( _injector.getInstance(ControlLogs),  
+															_injector.getInstance(ModelSharedObject), 
+															_injector.getInstance(ControlPersistedData) );
 		}
 		
 		override public function onRemove():void
 		{
-			_view.presentationModel.dispose();	
+			_view.supervisingPresenter.dispose();
 		}
 	}
 }

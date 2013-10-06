@@ -5,16 +5,28 @@
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
 	
+	<fx:Metadata> 
+		[ResourceBundle("text")] 
+	</fx:Metadata>
 	
+	
+	<!--
 	<s:HSlider
 		width="400"
 		y="100"
 		skinClass="views.skins.SkinkHSlider" />
 	
+	-->
+	
+	<local:TopTexNote
+		textTopNoteValue="{ resourceManager.getString(EnumsLanguage.TEXT, EnumsLanguage.CONNECTING)}"/>
+		 
+		
 	<fx:Script>
 		<![CDATA[
 			import org.as3.mvcsInjector.utils.Tracer;
 			
+			import uk.co.baremedia.gnomo.enums.EnumsLanguage;
 			import uk.co.baremedia.gnomo.utils.Resizer;
 			
 			
