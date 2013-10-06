@@ -203,13 +203,6 @@
 			</s:VGroup>
 			
 			<s:Button 
-				label="{ _presentationModel.textAudioButtonControl }" 
-				click=" _presentationModel.listenOrStopListening(); "
-				enabled="{ _presentationModel.receiving }"
-				styleName="buttonEuroStile"
-				width="100%"/>
-			
-			<s:Button 
 				label="{ UtilsResources.getKey(EnumsLanguage.SET_AS_BABY_UNIT) }" 
 				click=" _presentationModel.setAsBabyUnit(); " 
 				enabled="{ !_presentationModel.broadcasting }"

@@ -13,13 +13,12 @@
 	
 	<fx:Script>
 		<![CDATA[
-			import mx.core.FlexGlobals;
+			import mx.core.FlexGlobals; 
 			import mx.core.IUIComponent;
 			
 			import org.as3.mvcsInjector.utils.Tracer;
 			
 			import spark.components.TabbedViewNavigatorApplication;
-			import spark.components.supportClasses.StyleableTextField;
 			import spark.events.TextOperationEvent;
 			import spark.utils.TextFlowUtil;
 			
