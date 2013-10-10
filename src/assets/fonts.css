@@ -3,18 +3,38 @@
 @namespace mx "library://ns.adobe.com/flex/mx";
 
 @font-face {
+	src: url("DigitalBold.ttf");
+	fontFamily: "Digital";
+	embedAsCFF: false;
+}
+
+@font-face {
 	src: url("Eurostile.ttf");
 	fontFamily: "Eurostile";
 	embedAsCFF: false;
 }
 
-.euroStileLite {
-	fontFamily: Eurostile;
+.appFontHeavy {
+	fontFamily: Digital;
 	color: #6F7A73;
+	contentBackgroundAlpha: 0;
+	borderVisible: false;
+	skinClass: ClassReference("spark.skins.mobile.TextAreaSkin");
 }
 
-.euroStileBold {
+
+.appFontSmall {
 	fontFamily: Eurostile;
 	color: #6F7A73;
-	fontWeight: bold;
+	contentBackgroundAlpha: 0;
+	borderVisible: false;
+	skinClass: ClassReference("spark.skins.mobile.TextAreaSkin");
+}
+
+.buttonEuroStile {
+	enableLoadingState: true;
+	fontFamily: Eurostile;
+	cornerRadius: 0;
+	color: #6F7A73;
+	fontWeight: normal;
 }

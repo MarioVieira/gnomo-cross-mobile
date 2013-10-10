@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:TabbedViewNavigatorApplication 
 	xmlns:fx="http://ns.adobe.com/mxml/2009" 
-	xmlns:s="library://ns.adobe.com/flex/spark" xmlns:components="views.components.*" xmlns:core="org.as3.mvcsInjector.core.*"
+	xmlns:s="library://ns.adobe.com/flex/spark" xmlns:components="uk.co.baremedia.gnome.views.components.*" xmlns:core="org.as3.mvcsInjector.core.*"
 	creationComplete="creationComplete(event)">
 	
 	<fx:Metadata> 
@@ -12,27 +12,24 @@
 		<![CDATA[
 			import assets.Images;
 			
-			import core.CoreAppScreens;
-			
-			import navigation.MobileNavigator;
-			
 			import org.as3.mvcsInjector.core.ApplicationContext;
 			import org.as3.mvcsInjector.descriptors.DescriptorAppFrameWork;
 			import org.as3.mvcsInjector.utils.Tracer;
 			
 			import spark.components.SkinnablePopUpContainer;
 			
+			import uk.co.baremedia.gnome.core.CoreAppScreens;
+			import uk.co.baremedia.gnome.navigation.MobileNavigator;
+			import uk.co.baremedia.gnome.views.components.ComponentInfo;
+			import uk.co.baremedia.gnome.views.components.ComponentLogs;
+			import uk.co.baremedia.gnome.views.components.ComponentUnits;
+			import uk.co.baremedia.gnome.views.components.ListView;
 			import uk.co.baremedia.gnomo.core.CoreAppFrameWorkDescriptors;
 			import uk.co.baremedia.gnomo.descriptors.DescriptorLanguage;
 			import uk.co.baremedia.gnomo.enums.EnumsLanguage;
 			import uk.co.baremedia.gnomo.enums.EnumsScreens;
 			import uk.co.baremedia.gnomo.utils.UtilsResources;
 			import uk.co.baremedia.gnomo.utils.UtilsStaticUIInfo;
-			
-			import views.components.ComponentInfo;
-			import views.components.ComponentLogs;
-			import views.components.ComponentUnits;
-			import views.components.ListView;
 			
 			
 			protected var _mobNavigator		:MobileNavigator;
@@ -47,9 +44,9 @@
 			protected function creationComplete(e:Event):void
 			{
 				//navigator.addElement( new ComponentUnits() );
-				Tracer.log(this, "creationComplete - "+UtilsStaticUIInfo.actioBarHeight);
-				UtilsStaticUIInfo.actioBarHeight = this.navigator.actionBar.height;
-				UtilsStaticUIInfo.actioBarViewHeight = this.navigator.activeView.height;
+				Tracer.log(this, "creationComplete - actionBar.height: "+navigator.actionBar.height+" navigator.activeView.height: "+navigator.activeView.height);
+				UtilsStaticUIInfo.actioBarHeight = navigator.actionBar.height;
+				UtilsStaticUIInfo.actioBarViewHeight = navigator.activeView.height;
 			}
 			
 			protected function testIt():void

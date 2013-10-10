@@ -5,13 +5,6 @@
 	color: #6F7A73;
 }
 
-.buttonEuroStile {
-	enableLoadingState: true;
-	fontFamily: Eurostile;
-	color: #6F7A73;
-	fontWeight: normal;
-}
-
 s|Button
 {
 	cornerRadius: 20;	
