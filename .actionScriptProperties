@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<actionScriptProperties analytics="false" mainApplicationPath="gnomoMob2.mxml" projectUUID="5608e4ab-ef63-4f39-9d59-5f46395ff3bb" version="10">
-  <compiler additionalCompilerArguments="-locale en_US &#10;-theme+=/mobiletheme_ios/bin/mobiletheme_ios.swc" autoRSLOrdering="true" copyDependentFiles="true" fteInMXComponents="false" generateAccessible="true" htmlExpressInstall="true" htmlGenerate="false" htmlHistoryManagement="false" htmlPlayerVersionCheck="true" includeNetmonSwc="false" outputFolderPath="bin-debug" removeUnusedRSL="true" sourceFolderPath="src" strict="true" targetPlayerVersion="0.0.0" useApolloConfig="true" useDebugRSLSwfs="true" verifyDigests="true" warn="true">
+<actionScriptProperties analytics="false" mainApplicationPath="BabyCall.mxml" projectUUID="88c6493c-ae6a-465d-85bd-725eb070d602" version="10">
+  <compiler additionalCompilerArguments="-locale en_US&#10;-theme+=libs/mobiletheme_ios.swc&#10;-define CONFIG::DESKTOP false" autoRSLOrdering="true" copyDependentFiles="true" flexSDK="Flex 4.6.0 (AIR 3.9 23201)" fteInMXComponents="false" generateAccessible="false" htmlExpressInstall="true" htmlGenerate="false" htmlHistoryManagement="false" htmlPlayerVersionCheck="true" includeNetmonSwc="false" outputFolderPath="bin-debug" removeUnusedRSL="true" sourceFolderPath="src" strict="true" targetPlayerVersion="0.0.0" useApolloConfig="true" useDebugRSLSwfs="true" verifyDigests="true" warn="true">
     <compilerSourcePath>
       <compilerSourcePathEntry kind="1" linkType="1" path="/GitReps/lib-gnomo-mob/locale/en_us"/>
     </compilerSourcePath>
@@ -15,7 +15,6 @@
           <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/mx/mx.swc" useDefaultLinkType="false"/>
           <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/air/applicationupdater.swc" useDefaultLinkType="false"/>
           <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/utilities.swc" useDefaultLinkType="false"/>
-          <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/flex.swc" useDefaultLinkType="false"/>
           <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/sparkskins.swc" useDefaultLinkType="false"/>
           <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/qtp_air.swc" useDefaultLinkType="false"/>
           <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/datavisualization.swc" useDefaultLinkType="false"/>
@@ -23,67 +22,70 @@
           <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/spark_dmv.swc" useDefaultLinkType="false"/>
           <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/automation.swc" useDefaultLinkType="false"/>
           <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/automation_dmv.swc" useDefaultLinkType="false"/>
-          <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/automation_flashflexkit.swc" useDefaultLinkType="false"/>
-          <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/air/applicationupdater_ui.swc" useDefaultLinkType="false"/>
           <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/air/airframework.swc" useDefaultLinkType="false"/>
+          <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/air/applicationupdater_ui.swc" useDefaultLinkType="false"/>
+          <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/automation_flashflexkit.swc" useDefaultLinkType="false"/>
           <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/automation_agent.swc" useDefaultLinkType="false"/>
         </excludedEntries>
       </libraryPathEntry>
       <libraryPathEntry kind="1" linkType="1" path="libs"/>
-      <libraryPathEntry kind="3" linkType="1" path="/mvcs-injector/bin/mvcs-injector.swc" useDefaultLinkType="false"/>
-      <libraryPathEntry kind="3" linkType="1" path="/mobile_examples/bin/mobile_examples.swc" useDefaultLinkType="false"/>
+      <libraryPathEntry kind="3" linkType="1" path="/mobile-mvcs-injector/bin/mobile-mvcs-injector.swc" useDefaultLinkType="false"/>
       <libraryPathEntry kind="3" linkType="1" path="/Signals/bin/Signals.swc" useDefaultLinkType="false"/>
-      <libraryPathEntry kind="3" linkType="1" path="/CommandSignal/bin/CommandSignal.swc" useDefaultLinkType="false"/>
-      <libraryPathEntry kind="3" linkType="1" path="/mobiletheme_ios/bin/mobiletheme_ios.swc" useDefaultLinkType="false"/>
-      <libraryPathEntry kind="3" linkType="1" path="/lib-gnomo/bin/lib-gnomo.swc" useDefaultLinkType="false"/>
-      <libraryPathEntry kind="3" linkType="1" path="/cocoon-p2p/bin/cocoon-p2p.swc" useDefaultLinkType="false"/>
-      <libraryPathEntry kind="3" linkType="1" path="/RobotlegsInitializer/bin/RobotlegsInitializer.swc" useDefaultLinkType="false"/>
-      <libraryPathEntry kind="3" linkType="1" path="/gnomo-p2p/bin/gnomo-p2p.swc" useDefaultLinkType="false"/>
+      <libraryPathEntry kind="3" linkType="1" path="/SignalsCommand/bin/SignalsCommand.swc" useDefaultLinkType="false"/>
+      <libraryPathEntry kind="3" linkType="1" path="/gnomo-lib/bin/gnomo-lib.swc" useDefaultLinkType="false"/>
+      <libraryPathEntry kind="3" linkType="1" path="/CocoonP2P/bin/CocoonP2P.swc" useDefaultLinkType="false"/>
+      <libraryPathEntry kind="3" linkType="1" path="/RobotlegsInit/bin/RobotlegsInit.swc" useDefaultLinkType="false"/>
+      <libraryPathEntry kind="3" linkType="1" path="/mobile_examples/bin/mobile_examples.swc" useDefaultLinkType="false"/>
     </libraryPath>
     <sourceAttachmentPath/>
   </compiler>
   <applications>
-    <application path="gnomoMob2.mxml">
+    <application path="TEstTabbed.mxml">
+      <airExcludes/>
+    </application>
+    <application path="BabyCall.mxml">
       <airExcludes/>
     </application>
     <application path="gnomoMob.mxml">
       <airExcludes/>
     </application>
-    <application path="Test.mxml">
-      <airExcludes/>
-    </application>
-    <application path="GnomoMobile.mxml">
-      <airExcludes/>
-    </application>
   </applications>
   <modules/>
-  <buildCSSFiles/>
+  <buildCSSFiles>
+    <buildCSSFileEntry destPath="bin-debug" sourcePath="src/assets/fonts.css"/>
+  </buildCSSFiles>
   <flashCatalyst validateFlashCatalystCompatibility="false"/>
   <buildTargets>
-    <buildTarget buildTargetName="com.adobe.flexide.multiplatform.ios.platform" iosSettingsVersion="1" provisioningFile="/Users/Mario/Library/MobileDevice/Provisioning Profiles/D56C1FFE-FE1F-4260-945F-AED3947B2701.mobileprovision" releasePackageType="ipa-ad-hoc">
+    <buildTarget buildTargetName="com.adobe.flexide.multiplatform.ios.platform" iosSettingsVersion="1" provisioningFile="/Users/Mario/Documents/mobile/iOS/iOS_development_wildCard.mobileprovision" releasePackageType="ipa-ad-hoc">
       <multiPlatformSettings enabled="true" includePlatformLibs="false" platformID="com.adobe.flexide.multiplatform.ios.platform" version="2"/>
-      <airSettings airCertificatePath="/Users/Mario/Documents/development/iPhoneCertificate.p12" airTimestamp="true" version="1">
-        <airExcludes/>
+      <airSettings airCertificatePath="/Users/Mario/Documents/mobile/iOS/iOS_Distribution.p12" airTimestamp="true" anePathSet="true" version="1">
+        <airExcludes>
+          <pathEntry path="blackberry-tablet.xml"/>
+        </airExcludes>
+        <anePaths/>
       </airSettings>
       <actionScriptSettings version="1"/>
     </buildTarget>
     <buildTarget buildTargetName="com.qnx.flexide.multiplatform.qnx.platform" extraPackagingOptions="" signBarFile="false">
-      <airSettings airCertificatePath="" airTimestamp="true" version="1">
+      <airSettings airCertificatePath="" airTimestamp="true" anePathSet="false" version="1">
         <airExcludes/>
+        <anePaths/>
       </airSettings>
       <multiPlatformSettings enabled="true" includePlatformLibs="false" platformID="com.qnx.flexide.multiplatform.qnx.platform" version="2"/>
       <actionScriptSettings version="1"/>
     </buildTarget>
     <buildTarget airDownloadURL="https://market.android.com/details?id=com.adobe.air" androidSettingsVersion="1" buildTargetName="com.adobe.flexide.multiplatform.android.platform">
-      <airSettings airCertificatePath="/Users/Mario/Documents/development/iPhoneCertificate.p12" airTimestamp="true" version="1">
+      <airSettings airCertificatePath="/Users/Mario/Documents/mobile/desktopCert.p12" airTimestamp="true" anePathSet="true" version="1">
         <airExcludes/>
+        <anePaths/>
       </airSettings>
       <multiPlatformSettings enabled="true" includePlatformLibs="false" platformID="com.adobe.flexide.multiplatform.android.platform" version="2"/>
       <actionScriptSettings version="1"/>
     </buildTarget>
     <buildTarget buildTargetName="default">
-      <airSettings airCertificatePath="/Users/Mario/Desktop/TestCertificate.p12" airTimestamp="true" version="1">
+      <airSettings airCertificatePath="/Users/Mario/Documents/mobile/desktopCert.p12" airTimestamp="true" anePathSet="true" version="1">
         <airExcludes/>
+        <anePaths/>
       </airSettings>
       <multiPlatformSettings enabled="false" includePlatformLibs="false" platformID="default" version="2"/>
       <actionScriptSettings version="1"/>

@@ -17,7 +17,6 @@
 			import org.as3.mvcsInjector.utils.Tracer;
 			
 			import spark.components.SkinnablePopUpContainer;
-			import spark.skins.mobile.supportClasses.TabbedViewNavigatorTabBarTabSkinBase;
 			
 			import uk.co.baremedia.gnome.core.CoreAppScreens;
 			import uk.co.baremedia.gnome.navigation.MobileNavigator;
@@ -82,60 +81,6 @@
 			id="backButton" 
 			label="Back" 
 			click="_mobNavigator.backButton_clickHandler(event)" />
-		
-		<!--
-		<s:SkinnablePopUpContainer id="alertAgreement" backgroundAlpha="0.5" backgroundColor="0x000000">
-		<s:Panel title="{ UtilsResources.getKey(EnumsLanguage.AGREEMENT) }" horizontalCenter="0" verticalCenter="0" width="90%">
-		<s:VGroup width="100%" bottom="0"
-		horizontalAlign="center"
-		verticalAlign="middle">
-		
-		<s:TextArea
-		borderVisible="false" 
-		contentBackgroundAlpha="0" 
-		width="100%" 
-		editable="false" 
-		selectable="false"
-		text="{ UtilsResources.getKey(EnumsLanguage.DISCLAIMER_ALERT) }"/>
-		
-		<s:Button 
-		label="{ UtilsResources.getKey(EnumsLanguage.AGREE) }" 
-		click="closeAlert()" 
-		width="50%" 
-		styleName="dialogDefaultButton"/>
-		
-		</s:VGroup>
-		</s:Panel>
-		</s:SkinnablePopUpContainer>
-		
-		<s:SkinnablePopUpContainer id="alertImportant" backgroundAlpha="0.5" backgroundColor="0x000000">
-		
-		<s:Panel 
-		title="{ UtilsResources.getKey(EnumsLanguage.IMPORTANT) }" 
-		horizontalCenter="0" verticalCenter="0" width="90%">
-		
-		<s:VGroup width="100%" bottom="0"
-		horizontalAlign="center"
-		verticalAlign="middle">
-		
-		<s:TextArea
-		borderVisible="false" 
-		contentBackgroundAlpha="0" 
-		width="100%" 
-		editable="false" 
-		selectable="false"
-		textAlign="center"
-		text="{ UtilsResources.getKey(EnumsLanguage.INSTRUCTIONS_TEXT) }"/>
-		
-		<s:Button label="{ UtilsResources.getKey(EnumsLanguage.OK) }" 
-		click="closeAlert()" 
-		width="50%" 
-		styleName="dialogDefaultButton"/>
-		
-		</s:VGroup>
-		</s:Panel>
-		</s:SkinnablePopUpContainer>
-		-->
 		
 	</fx:Declarations>
 	

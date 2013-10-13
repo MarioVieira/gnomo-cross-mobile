@@ -28,7 +28,7 @@
 	color: #6F7A73;
 	contentBackgroundAlpha: 0;
 	borderVisible: false;
-	skinClass: ClassReference("spark.skins.mobile.TextAreaSkin");
+/*	skinClass: ClassReference("spark.skins.mobile.TextAreaSkin");*/
 }
 
 .buttonEuroStile {
@@ -37,4 +37,8 @@
 	cornerRadius: 0;
 	color: #6F7A73;
 	fontWeight: normal;
+	contentBackgroundAlpha: 0;
+	borderVisible: false;
+	skinClass: ClassReference("spark.skins.mobile.TextAreaSkin");
 }
+

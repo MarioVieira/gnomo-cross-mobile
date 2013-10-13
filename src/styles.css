@@ -5,10 +5,17 @@
 	color: #6F7A73;
 }
 
-s|Button
+.buttonArounded
 {
 	cornerRadius: 20;	
 }
+
+.buttonSquared
+{
+	cornerRadius: 0;	
+}
+
+
 
 s|ActionBar
 {

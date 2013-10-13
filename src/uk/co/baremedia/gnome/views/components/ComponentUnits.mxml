@@ -15,6 +15,7 @@
 			
 			import flash.sensors.Accelerometer;
 			
+			import mx.core.DPIClassification;
 			import mx.core.FlexGlobals;
 			import mx.events.ResizeEvent;
 			
@@ -36,17 +37,18 @@
 			[Bindable] protected var _presentationModel		:PresentationUnits;
 			
 			private var _currentAlert:SkinnablePopUpContainer;
+			[Bindable] private var percentVisorVerticalGap:Number;
 			
 			override protected function childrenCreated():void
 			{
+				button.setStyle("cornerRadious", 0);
+				
 				CONFIG::DESKTOP
 				{
-					button.height = 45;
+/* 					button.height = 45; */
 				}
 				
-				button.setStyle("cornerRadius", 0);
-				button.setStyle("fontSize", 20);
-				button.visible = true;
+/* 				button.visible = true; */
 			}
 			override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
 			{
@@ -73,7 +75,7 @@
 			
 			private function onOpenAlert(alertPopupId:String):void
 			{
-				Tracer.log(this, "onOpenAlert - alertPopupId: "+alertPopupId);
+				//Tracer.log(this, "onOpenAlert - alertPopupId: "+alertPopupId);
 				if(alertPopupId != null)
 					openAlert(this.alerts[alertPopupId]);
 				else if(_currentAlert && _currentAlert.id != PresentationUnits.ALERT_IMPORTANT)
@@ -117,7 +119,7 @@
 			
 			protected function updateMeasures():void
 			{
-				setSliderWidth();
+				setValues();
 				setMonitorMeasures();
 			}	
 			
@@ -128,31 +130,67 @@
 				monitor.activityMonitorHeight = rect.height;
 			}
 			
-			protected function setSliderWidth():void
+			protected function setValues():void
 			{
 				Tracer.log(this, "setSliderWidth - width: "+width);
+				
+				/* switch (FlexGlobals.topLevelApplication.applicationDPI)
+				{
+					case DPIClassification.DPI_320:
+					{
+						monitor.fontSize			= 60;
+						monitor.commonPadding		= 35;
+						monitor.elementsPercentage 	= .70;
+						slider.width 				= width * .50;
+						break;
+					}
+					case DPIClassification.DPI_240:
+					{
+						monitor.commonPadding		= 5;
+						monitor.fontSize			= 45;
+						monitor.commonPadding		= 25;
+						monitor.elementsPercentage	= .40;
+						slider.width 				= width * .60;
+						break;
+					}
+					default:
+					{
+						monitor.commonPadding		= 15;
+						monitor.fontSize			= 34;
+						monitor.elementsPercentage  = 0;
+						slider.width 				= width * .90;
+						
+						break;
+					}
+						
+				} */
+				
 				if(width <= 320) 		
 				{
 					monitor.commonPadding		= 15;
 					monitor.fontSize			= 34;
 					monitor.elementsPercentage  = 0;
-					slider.width 				= width * .90;
+					slider.width 				= width * .80;
+					percentVisorVerticalGap		= 0;
 				}
 				else if(width >= 400 && width <= 768)
 				{
-					monitor.commonPadding		= 5;
 					monitor.fontSize			= 45;
 					monitor.commonPadding		= 25;
 					monitor.elementsPercentage	= .40;
 					slider.width 				= width * .60;
+					percentVisorVerticalGap		= 0;
+					/* percentVisorVerticalGap		= (innerGroup) ? (innerGroup.height * 0.01) : 0; */
 				}
 				else
 				{
-					monitor.fontSize			= 60;
-					monitor.commonPadding		= 35;
+					monitor.fontSize			= 40;
+					monitor.commonPadding		= 25;
 					monitor.elementsPercentage 	= .70;
 					slider.width 				= width * .50;
-				}
+					percentVisorVerticalGap 	= 0;
+					/* percentVisorVerticalGap		= (innerGroup) ? (innerGroup.height * 0.0166) : 0; */
+				} 
 			}
 			
 			private function updateSensibilitySlider():void
@@ -190,13 +228,16 @@
 			id="innerGroup"
 			horizontalAlign="center"
 			width="98%"
-			height="98%">
+			height="100%">
 			
 			<components:ComponentBabyMonitor
 				id="monitor"
 				
 				width="100%"
 				height="100%"/>
+			
+			<!--<s:Spacer
+				height="{percentVisorVerticalGap}"/>-->
 			
 			<s:VGroup
 				horizontalAlign="left"
@@ -226,21 +267,27 @@
 					fontWeight="bold"
 					styleName="appFontSmall"/>
 				
+				<!--<s:Spacer
+					height="{percentVisorVerticalGap}"/>-->
+				
 			</s:VGroup>
+			
 			
 			<s:Button 
 				id="button"
+				skinClass="uk.co.baremedia.gnome.views.skins.ButtonSquaredSkin"
 				label="{ UtilsResources.getKey(EnumsLanguage.SET_AS_BABY_UNIT) }" 
 				click=" _presentationModel.setAsBabyUnit(); " 
 				enabled="{ !_presentationModel.broadcasting &amp;&amp; _presentationModel.modelMonitor.localNetworkConnected }"
-				styleName="buttonEuroStile"
+				styleName="appFontSmall"
 				fontWeight="bold"
-				visible="false"
+				fontSize="20"
+				visible="true"
 				width="{innerGroup.width - 15}"/>
-			
-			
-			<!-- Not to allow setting as BabyUnit when not connected
-				&& _presentationModel.modelMonitor.localNetworkConnected }" -->
+
+			<s:Spacer
+				id="spacer"
+				height="{button.height / 8}"/>
 			
 		</s:VGroup>
 		

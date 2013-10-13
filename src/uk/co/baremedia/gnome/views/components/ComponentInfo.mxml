@@ -13,7 +13,9 @@
 	
 	<fx:Script>
 		<![CDATA[
-			import mx.core.FlexGlobals; 
+			import flashx.textLayout.elements.TextFlow;
+			
+			import mx.core.FlexGlobals;
 			import mx.core.IUIComponent;
 			
 			import org.as3.mvcsInjector.utils.Tracer;
@@ -23,10 +25,13 @@
 			import spark.utils.TextFlowUtil;
 			
 			import uk.co.baremedia.gnomo.enums.EnumsLanguage;
-			import uk.co.baremedia.gnomo.presentation.PresentationScreenInfo;
+			import uk.co.baremedia.gnomo.presentation.PresentationInfo;
 			import uk.co.baremedia.gnomo.utils.UtilsResources;
 			import uk.co.baremedia.gnomo.utils.UtilsStaticUIInfo;
 			private var _stage:Stage;
+			private var _text:String;
+			private var _htmlText:String;
+			private var _textFlow:TextFlow;
 			
 			public function set validStage(value:Stage):void
 			{
@@ -39,7 +44,7 @@
 				return _stage;
 			}
 			
-			[Bindable] public var presentationModel:PresentationScreenInfo;
+			[Bindable] public var presentationModel:PresentationInfo;
 			
 			protected function onAddedToStage(event:Event):void
 			{
@@ -58,37 +63,70 @@
 				dispatchEvent(event);			
 			}
 			
+			public function set htmlTextFlow(value:TextFlow):void
+			{
+				textArea.textFlow = value;
+			}
+			
+			[Bindable]
+			public function get htmlTextFlow():TextFlow
+			{
+				return _textFlow;
+			}
+			
+			[Bindable]
+			public function get text():String
+			{
+				return _text;
+			}
+			
+			public function set text(value:String):void
+			{
+				_text = value;
+			}
+			
+			
+			[Bindable]
+			public function get htmlText():String
+			{
+				return _htmlText;
+			}
+			
+			public function set htmlText(value:String):void
+			{
+				_htmlText = value;
+			}
+			
+			
 		]]>
 	</fx:Script>
 	
-	<s:actionContent>
+<!--	<s:actionContent>
 		<s:Button 
 			label="{ UtilsResources.getKey(EnumsLanguage.BACK) }" 
 			click="{ presentationModel.backHistory(); }"/>
-	</s:actionContent>
+	</s:actionContent>-->
 	
 	
 	<s:Scroller width="100%" height="100%" verticalScrollPolicy="on">
 		
-		<s:VGroup id="group" width="100%" height="100%" paddingBottom="10" paddingLeft="10" paddingRight="10">
-			<!--
-			<s:layout>
-				<s:VerticalLayout 
-					paddingTop="10" paddingBottom="10" paddingLeft="10" paddingRight="10"/>
-			</s:layout>-->	
+		<s:VGroup id="group" width="100%" paddingBottom="10" paddingLeft="10" paddingRight="10">
 			
 			
-			<!--
-			<s:TextArea
+			<!--<s:RichText
 				id="textArea"
 				borderVisible="false" 
 				contentBackgroundAlpha="0" 
 				width="100%" 
-				height="100%"
+				focusAlpha="0"
 				editable="false" 
-				visible="false"
-				text="{ presentationModel.textInfoHTML }" 
-				change="onChange(event)"/>-->
+				textFlow="{ _htmlText }" />
+			-->
+			<s:RichText
+				id="textArea"
+				
+				width="100%" 
+				textFlow="{ _textFlow }" />
 			
 			<!--textFlow="{ TextFlowUtil.importFromXML( XML(presentationModel.textInfoHTML) ) }"/>-->
 			

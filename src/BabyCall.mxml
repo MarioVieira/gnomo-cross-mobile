@@ -2,6 +2,8 @@
 <s:TabbedViewNavigatorApplication 
 	xmlns:fx="http://ns.adobe.com/mxml/2009" 
 	xmlns:s="library://ns.adobe.com/flex/spark" xmlns:components="uk.co.baremedia.gnome.views.components.*" xmlns:core="org.as3.mvcsInjector.core.*"
+	splashScreenScaleMode="stretch"
+	splashScreenImage="uk.co.baremedia.gnome.views.elements.SplashScreen"
 	creationComplete="creationComplete(event)">
 	
 	<fx:Metadata> 
@@ -12,11 +14,11 @@
 		<![CDATA[
 			import assets.Images;
 			
+			import spark.skins.mobile.ButtonSkin;
+			
 			import org.as3.mvcsInjector.core.ApplicationContext;
 			import org.as3.mvcsInjector.descriptors.DescriptorAppFrameWork;
 			import org.as3.mvcsInjector.utils.Tracer;
-			
-			import spark.components.SkinnablePopUpContainer;
 			
 			import uk.co.baremedia.gnome.core.CoreAppScreens;
 			import uk.co.baremedia.gnome.navigation.MobileNavigator;
@@ -24,6 +26,7 @@
 			import uk.co.baremedia.gnome.views.components.ComponentLogs;
 			import uk.co.baremedia.gnome.views.components.ComponentUnits;
 			import uk.co.baremedia.gnome.views.components.ListView;
+			import uk.co.baremedia.gnome.views.elements.SplashScreen;
 			import uk.co.baremedia.gnomo.core.CoreAppFrameWorkDescriptors;
 			import uk.co.baremedia.gnomo.descriptors.DescriptorLanguage;
 			import uk.co.baremedia.gnomo.enums.EnumsLanguage;
@@ -31,10 +34,8 @@
 			import uk.co.baremedia.gnomo.utils.UtilsResources;
 			import uk.co.baremedia.gnomo.utils.UtilsStaticUIInfo;
 			
-			
 			protected var _mobNavigator		:MobileNavigator;
 			protected var _context			:ApplicationContext;  
-			protected var _currentAlert		:SkinnablePopUpContainer;
 			
 			override protected function childrenCreated():void
 			{
@@ -87,8 +88,8 @@
 	
 	<fx:Style
 		source="/styles.css"/>
-	
-	<fx:Style
+
+	<fx:Style 
 		source="/assets/fonts.css"/>
 	
 	<s:ViewNavigator id="navigator" label="{ UtilsResources.getKey(EnumsLanguage.BABY_CALL) }" firstView="{ ComponentUnits }" width="100%" height="100%">

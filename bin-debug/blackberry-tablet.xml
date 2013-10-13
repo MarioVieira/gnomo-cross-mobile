@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+
 <qnx>
-<author>Mario</author> 
-<authorId>gYAAgF1IfHAVoX3T9DLQGO1NokE</authorId>
-<category>core.games</category> 
-<action>play_audio</action> 
-<action>record_audio</action>
-<action>set_audio_volume</action> 
-<buildId>1</buildId> 
-<platformVersion>1.0.0.0</platformVersion> 
+   <author>Mario</author>
+   <authorId>gYAAgF1IfHAVoX3T9DLQGO1NokE</authorId>
+   <category>core.games</category>
+   <action>play_audio</action>
+   <action>record_audio</action>
+   <action>set_audio_volume</action>
+   <buildId>1</buildId>
+   <platformVersion>1.0.0.0</platformVersion>
 </qnx>

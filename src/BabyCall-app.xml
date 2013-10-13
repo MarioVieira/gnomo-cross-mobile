@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
-<application xmlns="http://ns.adobe.com/air/application/3.8">
+<application xmlns="http://ns.adobe.com/air/application/3.9">
 
 
 <!-- Adobe AIR Application Descriptor File Template.
@@ -29,7 +29,7 @@
 	<!-- A string value of the format <0-999>.<0-999>.<0-999> that represents application version which can be used to check for application upgrade. 
 	Values can also be 1-part or 2-part. It is not necessary to have a 3-part value.
 	An updated version of application must have a versionNumber value higher than the previous version. Required for namespace >= 2.5 . -->
-	<versionNumber>0.4.6</versionNumber>
+	<versionNumber>0.5.4</versionNumber>
 		         
 	<!-- A string value (such as "v1", "2.5", or "Alpha 1") that represents the version of the application, as it should be shown to users. Optional. -->
 	<!-- <versionLabel></versionLabel> -->
@@ -95,11 +95,11 @@
 
         <!-- Whether the app will begin auto-orienting on launch. Optional. Mobile only. Default false -->
 
-        <!-- <autoOrients></autoOrients> -->
+        <autoOrients>true</autoOrients> 
 
         <!-- Whether the app launches in full screen. Optional. Mobile only. Default false -->
 
-        <!-- <fullScreen></fullScreen> -->
+        <fullScreen>true</fullScreen>
 
         <!-- The render mode for the app (either auto, cpu, or gpu). Optional. Mobile only. Default auto -->
 
@@ -107,10 +107,9 @@
 
 		<!-- Whether or not to pan when a soft keyboard is raised or lowered (either "pan" or "none").  Optional.  Defaults "pan." -->
 		<!-- <softKeyboardBehavior></softKeyboardBehavior> -->
-	<autoOrients>true</autoOrients>
-        <fullScreen>false</fullScreen>
-        <visible>true</visible>
-        <softKeyboardBehavior>none</softKeyboardBehavior>
+	
+       <visible>true</visible>
+       <softKeyboardBehavior>none</softKeyboardBehavior>
     </initialWindow>
 
 	<!-- We recommend omitting the supportedProfiles element, -->
@@ -129,16 +128,27 @@
 	<!-- The icon the system uses for the application. For at least one resolution,
 	specify the path to a PNG file included in the AIR package. Optional. -->
 	<icon>
-		<image16x16>assets/babyCall_16.png</image16x16>
-		<image32x32>assets/babyCall_32.png</image32x32>
-		<image36x36>assets/babyCall_36.png</image36x36>
-		<image48x48>assets/babyCall_48.png</image48x48>
-		<image57x57>assets/babyCall_57.png</image57x57>
-		<image72x72>assets/babyCall_72.png</image72x72>
-		<image114x114>assets/babyCall_114.png</image114x114>
-		<image128x128>assets/babyCall_128.png</image128x128>
+		<!-- <image16x16>/assets/icons/AppIcon16x16.png</image16x16>-->
+		<image29x29>/assets/icons/AppIcon29x29.png</image29x29>
+		<image36x36>/assets/icons/AppIcon36x36.png</image36x36>
+		<image40x40>/assets/icons/AppIcon40x40.png</image40x40>
+		<image48x48>/assets/icons/AppIcon48x48.png</image48x48>
+		<image50x50>/assets/icons/AppIcon50x50.png</image50x50>
+		<image57x57>/assets/icons/AppIcon57x57.png</image57x57>
+		<image58x58>/assets/icons/AppIcon58x58.png</image58x58>
+		<!-- <image60x60>/assets/icons/AppIcon58x58.png</image60x60> -->
+		<image72x72>/assets/icons/AppIcon72x72.png</image72x72>
+		<image76x76>/assets/icons/AppIcon76x76.png</image76x76>
+		<image80x80>/assets/icons/AppIcon80x80.png</image80x80>
+		<image96x96>/assets/icons/AppIcon96x96.png</image96x96>
+		<image100x100>/assets/icons/AppIcon100x100.png</image100x100>
+		<image114x114>/assets/icons/AppIcon114x114.png</image114x114>
+		<image120x120>/assets/icons/AppIcon120x120.png</image120x120>
+		<image144x144>/assets/icons/AppIcon144x144.png</image144x144>
+		<image152x152>/assets/icons/AppIcon152x152.png</image152x152>
+		<image512x512>/assets/icons/AppIcon512x512.png</image512x512>
+		<image1024x1024>/assets/icons/AppIcon1024x1024.png</image1024x1024>
 	</icon>
-
 	<!-- Whether the application handles the update when a user double-clicks an update version
 	of the AIR file (true), or the default AIR application installer handles the update (false).
 	Optional. Default false. -->
@@ -260,7 +270,7 @@
     <iPhone>
         <InfoAdditions><![CDATA[
         	<key>UIPrerenderedIcon</key>
-            <true/>
+            <false/>
 			<key>UIDeviceFamily</key>
 			<array>
 				<string>1</string>

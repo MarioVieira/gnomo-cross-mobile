@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:SplashScreenImage xmlns:fx="http://ns.adobe.com/mxml/2009" 
+					 xmlns:s="library://ns.adobe.com/flex/spark">
+	
+	<!-- Default splashscreen image. -->
+	<s:SplashScreenImageSource 
+		source="@Embed('splashScreen.png')"/>
+	
+	<!--
+		Using a green image with no logos
+	
+	<s:SplashScreenImageSource 
+		source="@Embed('../assets/logo240Portrait.jpg')"
+		dpi="240" 
+		aspectRatio="portrait"/>
+	
+	<s:SplashScreenImageSource 
+		source="@Embed('../assets/logo240Landscape.jpg')"
+		dpi="240" 
+		aspectRatio="landscape"/>
+	
+	<s:SplashScreenImageSource 
+		source="@Embed('../assets/logo160.jpg')"
+		dpi="160" 
+		aspectRatio="portrait" 
+		minResolution="960"/>-->
+</s:SplashScreenImage>
