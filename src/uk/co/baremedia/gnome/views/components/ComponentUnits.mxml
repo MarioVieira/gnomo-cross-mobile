@@ -253,6 +253,8 @@
 					id="textArea"
 					mouseFocusEnabled="false"
 					mouseChildren="false"
+					editable="false"
+					selectable="false"
 					paddingTop="0"
 					width="{ slider.width }"
 					minHeight="0"
@@ -264,7 +266,6 @@
 					height="26"
 					verticalScrollPolicy="off"
 					horizontalScrollPolicy="off"
-					fontWeight="bold"
 					styleName="appFontSmall"/>
 				
 				<!--<s:Spacer

@@ -119,14 +119,15 @@
 		width="100%">
 		
 		<s:TextArea
+			paddingBottom="2"
+			paddingLeft="2"
 			styleName="appFontHeavy"
 			fontSize="{ fontSize }"
 			selectable="false"
 			focusAlpha="0"
+			editable="false"
 			heightInLines="{NaN}"
 			width="100%"
-			paddingLeft="0"
-			paddingRight="0"
 			text="{ _model.textTopNote }"/>
 		
 		<s:VGroup

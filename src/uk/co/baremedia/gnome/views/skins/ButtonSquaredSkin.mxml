@@ -23,7 +23,7 @@
 <s:SparkButtonSkin xmlns:fx="http://ns.adobe.com/mxml/2009" 
              xmlns:s="library://ns.adobe.com/flex/spark" 
              xmlns:fb="http://ns.adobe.com/flashbuilder/2009"
-			 minWidth="{measuredDefaultWidth}" 
+			 maxHeight="{measuredDefaultHeight}"
              alpha.disabled="0.5" xmlns:elements="uk.co.baremedia.gnome.views.elements.*">
      
     <fx:Metadata>
@@ -100,7 +100,7 @@
 							Tracer.log(this, "320");
 							measuredDefaultWidth = 262;
 							measuredDefaultHeight = 88;
-							buttonPaddingTop = 26;
+							buttonPaddingTop = 20;
 							break;
 						}
 						case DPIClassification.DPI_240:
@@ -108,7 +108,7 @@
 							Tracer.log(this, "240");
 							measuredDefaultWidth = 196;
 							measuredDefaultHeight = 66;
-							buttonPaddingTop = 14;
+							buttonPaddingTop = 11;
 							break;
 						}
 						default:
@@ -144,14 +144,7 @@
             
 			[Bindable] private var measuredDefaultHeight:int;
 			[Bindable] private var measuredDefaultWidth:int;
-			
-			[Bindable] private var layoutPaddingBottom:int;
-			[Bindable] private var layoutPaddingTop:int;
-			[Bindable] private var layoutPaddingRight:int;
-			[Bindable] private var layoutPaddingLeft:int;
-			[Bindable] private var layoutGap:int;
-			[Bindable] private var buttonPaddingTop:int;
-                                 
+			[Bindable] private var buttonPaddingTop:int;                     
         ]]>        
     </fx:Script>
         
@@ -282,14 +275,6 @@
     
     <!-- layer 8: text -->
     <!--- @copy spark.components.supportClasses.ButtonBase#labelDisplay  -->
- 	<!--<elements:TextAreaDisplay
-			id="labelDisplay"
-            textAlign="center"
-			styleName="appFontSmall"
-			heightInLines="1"
-			verticalAlign="middle"
-            left="10" right="10" top="{buttonPaddingTop}"/>-->
-	
 		<s:Group
 			width="100%" height="{measuredDefaultHeight}">
 			
@@ -304,6 +289,9 @@
 			<elements:TextAreaDisplay
 				id="labelDisplay"
 				textAlign="center"
+				editable="false"
+				selectable="false"
+				fontWeight="normal"
 				styleName="appFontSmall"
 				heightInLines="1"
 				left="10" right="10" top="{buttonPaddingTop}"/>
